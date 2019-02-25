@@ -16,8 +16,8 @@
 <h1 align="center">LOGIN</h1>
 <f:form action="dologin" modelAttribute="credentialsBean" method="POST">
 <table align="center" >
-<tr><td><f:input type="text" path="userID" /></td> <td><f:errors path="userID" /></td></tr>
-<tr><td><f:input type="password" path="password"/></td> <td><f:errors path="password" cssClass="errstyle"/></td></tr>
+<tr><td>UserID</td><td><f:input type="text" path="userID" /></td> <td><f:errors path="userID" cssClass="errstyle"/></td></tr>
+<tr><td>Password</td><td><f:input type="password" path="password"/></td> <td><f:errors path="password" cssClass="errstyle"/></td></tr>
 <tr><td><!-- <button type="submit">Login</button> --><input type="submit" value="login"/></td></tr>
 <tr><td colspan=2><a href="register">New User?</a>Register Here</td></tr>
 <tr><td colspan=2 class="errstyle">${msg}</td></tr>

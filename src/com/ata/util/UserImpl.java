@@ -70,6 +70,10 @@ public class UserImpl implements User{
 	{
 		try 
 		{
+		ProfileBean pbdb = updao.findByEmail(profileBean.getEmailID());
+		if(pbdb != null)  //user already present
+			return "FAIL";
+			
 		String userID = null;
 		
 		//generate userid;

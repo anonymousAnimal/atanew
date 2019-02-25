@@ -8,7 +8,7 @@
 <title>Profile</title>
 </head>
 <body>
-<f:form action="logout" modelAttribute="profileBean">
+<f:form action="logout" >
 <button type="submit">logout</button>
 
 <h1>My Profile</h1>

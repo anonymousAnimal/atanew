@@ -1,6 +1,7 @@
 package com.ata.dao;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.hibernate.Query;
 import org.hibernate.SessionFactory;
@@ -37,7 +38,7 @@ public class UserProfileDaoImpl implements XyzDao<ProfileBean> {
 	@Override
 	public boolean update(ProfileBean t) {
 		try {
-			sessionFactory.getCurrentSession().update(t);
+			sessionFactory.getCurrentSession().merge(t);
 			return true;
 		} catch (Exception e) {
 			System.out.println("Exception :" + e.getMessage());
@@ -59,4 +60,14 @@ public class UserProfileDaoImpl implements XyzDao<ProfileBean> {
 		return list;
 	}
 
+	
+	public ProfileBean findByEmail(String email) {
+		Query<ProfileBean> query = sessionFactory.getCurrentSession().createQuery(" from ProfileBean where emailID = :em");
+				query.setParameter("em", email);
+		List list = query.list();
+		if(list.isEmpty())
+			return null;
+		else
+			return (ProfileBean) list.get(0);
+	}
 }

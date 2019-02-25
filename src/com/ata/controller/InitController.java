@@ -6,6 +6,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import javax.security.sasl.AuthorizeCallback;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -67,7 +68,7 @@ public class InitController {
 	
 	
 	@RequestMapping(path="/dologin", method=RequestMethod.POST)
-	public String doLogin(@Valid @ModelAttribute("credentialsBean")CredentialsBean credentialsBean, BindingResult bres, Model m)
+	public String doLogin(@Valid @ModelAttribute("credentialsBean")CredentialsBean credentialsBean, BindingResult bres, Model m, HttpSession session)
 	{
 		if(bres.hasErrors()) {
 			System.out.println("some error occured");
@@ -105,10 +106,12 @@ public class InitController {
 			{
 				ProfileBean pb = pdao.findByID(credentialsBean.getUserID());			//getting profileBean from id
 				m.addAttribute("profileBean",pb);											//add it as attribute in model m
+				session.setAttribute("profileBean", pb);	//setting profileBean object into session
+				session.setAttribute("credentialsBean", credentialsBean);
 				return "Profile";												// calling Profile.jsp
+				
 			}
 		}
-		
 		return "login";
 			
 	}
@@ -116,40 +119,57 @@ public class InitController {
 	@RequestMapping(path="/doregister", method=RequestMethod.POST)
 	public String doRegister(@Valid  ProfileBean profileBean, BindingResult bres, Model m)
 	{
+		profileBean.setEmailID(profileBean.getEmailID().toLowerCase().trim());
 		System.out.println("inside doregister method");
 		if(bres.hasErrors()) {
 			System.out.println("doregister : has errors");
 			return "Register";
 		}
 		
-		user.register(profileBean);
-		m.addAttribute("profileBean",profileBean);
+		String result = user.register(profileBean);
+		System.out.println(result);
+		if(result.equals("FAIL"))
+		m.addAttribute("msg","Resitration status : "+result+" You are already registered Please Login !!");
+		else 
+			m.addAttribute("msg","Resitration status : SUCCESS\n you can login now !!!! with uid = "+result);
+		m.addAttribute("credentialsBean", new CredentialsBean());
+		//session.setAttribute("profileBean", profileBean);
 		
-		return "Profile";
+		return "login";
 	}
 	
 	
 	
-	@RequestMapping("logout")
-	public String logout(@ModelAttribute("profileBean") ProfileBean profileBean, Model m) 
+	@RequestMapping(path="/logout")
+	public String logout(@ModelAttribute("profileBean") ProfileBean pb, Model m, HttpSession session) 
 	{
+		ProfileBean profileBean = (ProfileBean)session.getAttribute("profileBean");
+		
 		if(profileBean!=null )
 		{
+			System.out.println("InitController.logout() : profileBean is not null");
 			if(profileBean.getUserID()==null) {
 				System.out.println("user id is null");
 				return null;
 			}
 			
+			System.out.println("logging out...");
 			boolean res =user.logout(profileBean.getUserID());
 			if(res)
 			{
+				System.out.println("logout success now invalidating session ....");
+				session.invalidate();         //invalidating session.
 				m.addAttribute("msg","successfully logged out !");
 			}
 			else
 				m.addAttribute("msg","error while logout possibly you are already logged out !");
-			
+				
+			System.out.println("redirecting to login page...");
+			m.addAttribute("credentialsBean",new CredentialsBean());
 			return "login";
 		}
+		else
+			System.out.println("InitController.logout(): profileBean is null");
 		 return  null;
 			
 	}
