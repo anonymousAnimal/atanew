@@ -6,10 +6,12 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
 import com.ata.bean.ReservationBean;
 import com.ata.bean.VehicleBean;
 
+@Repository
 public class ReservationDaoImpl implements XyzDao<ReservationBean>{
 	@Autowired
 	SessionFactory ses;

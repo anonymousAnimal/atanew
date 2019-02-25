@@ -1,7 +1,13 @@
 package com.ata.bean;
 
-public class DriverBean {
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
+@Entity
+@Table(name="ata_tbl_driver")
+public class DriverBean {
+	@Id
 	private String driverID;
 	private String name;
 	private String street;

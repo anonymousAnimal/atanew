@@ -2,7 +2,14 @@ package com.ata.bean;
 
 import java.util.Date;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name="ata_tbl_reservation")
 public class ReservationBean {
+	@Id
 	private String reservationID;
 	private String userID;
 	private String routeID;

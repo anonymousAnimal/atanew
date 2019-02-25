@@ -13,7 +13,7 @@
 ${list.routeID}
 ${list.source}
 ${list.destination}
-<a href="dodelRoute/${list.routeID}" >Delete</a>
+<a href="dodelRoute/${list.routeID}" >Delete</a><br>
 </l:forEach>
 ${msg} 
 </body>

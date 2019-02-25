@@ -18,8 +18,9 @@ import com.ata.service.Administrator;
 import com.ata.service.AdministratorServiceImpl;
 import com.ata.util.AuthImpl;
 
-@Transactional
+
 @Controller
+@Transactional
 public class AdminRouteController {
 
 	@Autowired
@@ -29,7 +30,7 @@ public class AdminRouteController {
 	@Autowired
 	RouteDaoImpl rdao;
 	
-	@RequestMapping("/addRoute")
+	@RequestMapping("/addroute")
 	public String addRoute(Model m) 
 	{
 		m.addAttribute("routeBean",new RouteBean());
@@ -63,12 +64,12 @@ public class AdminRouteController {
 	@RequestMapping("/dodelRoute/{id}")
 	public String delRoute1( @RequestParam("id")String id,RouteBean routeBean,Model m) 
 	{
-	//CredentialsBean cb=(CredentialsBean)ses.getAttribute("credentialsBean");
+		//CredentialsBean cb=(CredentialsBean)ses.getAttribute("credentialsBean");
 		//authenticate user
 		ArrayList<String>ar=new ArrayList<String>();
 		ar.add(id);
-	int rows=administratorServiceImpl.deleteRoute(ar);
-	m.addAttribute("msg","Route deleted with id"+id);
+		int rows=administratorServiceImpl.deleteRoute(ar);
+		m.addAttribute("msg","Route deleted with id"+id);
 	
 		return "DelRoute";
 	}

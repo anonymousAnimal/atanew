@@ -3,83 +3,98 @@ package com.ata.service;
 import java.util.ArrayList;
 import java.util.Date;
 
-import javax.transaction.Transactional;
-
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.ata.bean.DriverBean;
 import com.ata.bean.ReservationBean;
 import com.ata.bean.RouteBean;
 import com.ata.bean.VehicleBean;
+import com.ata.dao.DriverDaoImpl;
 import com.ata.dao.RouteDaoImpl;
+import com.ata.dao.VehicleDaoImpl;
 import com.ata.util.DBSequenceUtil;
 
-@Component
+@Service
 @Transactional
 public class AdministratorServiceImpl implements Administrator {
 
 	@Autowired
 	SessionFactory sf;
 	@Autowired
+	VehicleDaoImpl vehicleDaoImpl;
+	
+	@Autowired
 	RouteDaoImpl routeDaoImpl;
+	@Autowired
+	DriverDaoImpl driverDaoImpl;
 	@Autowired
 	DBSequenceUtil dbseq;
 	
-	
 	@Override
 	public String addVehicle(VehicleBean vehicleBean) {
-		// TODO Auto-generated method stub
-		return null;
+		
+		String id=dbseq.getID(vehicleBean);
+		vehicleBean.setVehicleID(id);
+		String res=vehicleDaoImpl.create(vehicleBean);
+		System.out.println(res+" Vehicle Added with Vehicleid"+id);
+		return res;
 	}
 
 	@Override
 	public int deleteVehicle(ArrayList<String> vehicleID) {
-		// TODO Auto-generated method stub
-		return 0;
+		int rows=vehicleDaoImpl.delete(vehicleID);
+		return rows;
 	}
 
 	@Override
 	public VehicleBean viewVehicle(String vehicleID) {
-		// TODO Auto-generated method stub
-		return null;
+		VehicleBean vb=vehicleDaoImpl.findByID(vehicleID);
+		return vb;
 	}
 
 	@Override
 	public boolean modifyVehicle(VehicleBean vehicleBean) {
-		// TODO Auto-generated method stub
-		return false;
+		
+		return vehicleDaoImpl.update(vehicleBean);
+
 	}
 
 	@Override
-	public String addDriver(DriverBean driverBean) {
-		// TODO Auto-generated method stub
-		return null;
+	public String addDriver(DriverBean driverBean)
+	{
+		String id=dbseq.getID(driverBean);
+		driverBean.setDriverID(id);
+		String res=driverDaoImpl.create(driverBean);
+		System.out.println(res+" Driver Added with driverid"+id);
+		return res;
 	}
 
 	@Override
 	public int deleteDriver(ArrayList<String> driverID) {
-		// TODO Auto-generated method stub
-		return 0;
+		
+		int rows=driverDaoImpl.delete(driverID);
+		return rows;
+	
 	}
 
 	@Override
 	public boolean allotDriver(String reservationID, String driverID) {
-		// TODO Auto-generated method stub
+		
+		
 		return false;
 	}
 
 	@Override
 	public boolean modifyDriver(DriverBean driverBean) {
-		// TODO Auto-generated method stub
-		return false;
+		
+		return driverDaoImpl.update(driverBean);
 	}
 
 	@Override
 	public String addRoute(RouteBean routeBean) {
-		//first authenticate user from sessionAttr
 		
 		String id=dbseq.getID(routeBean);
 		routeBean.setRouteID(id);
@@ -96,19 +111,20 @@ public class AdministratorServiceImpl implements Administrator {
 
 	@Override
 	public RouteBean viewRoute(String routeID) {
-		// TODO Auto-generated method stub
-		return null;
+		RouteBean rb=routeDaoImpl.findByID(routeID);
+		return rb;
 	}
 
 	@Override
 	public boolean modifyRoute(RouteBean routeBean) {
-		// TODO Auto-generated method stub
-		return false;
+		
+		return routeDaoImpl.update(routeBean);
 	}
 
 	@Override
 	public ArrayList<ReservationBean> viewBookingDetails(Date journeyDate, String source, String destination) {
-		// TODO Auto-generated method stub
+		
+		
 		return null;
 	}
 
