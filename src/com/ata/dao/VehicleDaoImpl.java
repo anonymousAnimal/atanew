@@ -53,4 +53,22 @@ public class VehicleDaoImpl implements XyzDao<VehicleBean> {
 		return li;
 	}
 
+	
+	public ArrayList<VehicleBean> findByType(String type){
+		
+		Query<VehicleBean> query =ses.getCurrentSession().createQuery("from VehicleBean where type=:type");
+		query.setParameter("type", type);
+		ArrayList<VehicleBean> list = (ArrayList<VehicleBean>)query.list();
+		return list;
+		
+	}
+	
+public ArrayList<VehicleBean> findBySeats(int seats){
+		
+		Query<VehicleBean> query =ses.getCurrentSession().createQuery("from VehicleBean where seatingCapacity=:seats");
+		query.setParameter("seats", seats);
+		ArrayList<VehicleBean> list = (ArrayList<VehicleBean>)query.list();
+		return list;
+		
+	}
 }
