@@ -8,7 +8,11 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Transient;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Past;
 
+import org.hibernate.validator.constraints.NotBlank;
+import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.format.annotation.DateTimeFormat;
 
 
@@ -18,21 +22,33 @@ public class ProfileBean {
 	
 	@Id
 	private String userID;
+	
+	@NotEmpty(message="not empty")
 	private String firstName;
+	@NotEmpty(message="cannot be empty")
 	private String lastName;
 	
-	 @DateTimeFormat(pattern = "yyyy-MM-dd") // This is for bind Date with @ModelAttribute
-	 @Temporal(value=TemporalType.DATE)
+	@DateTimeFormat(pattern = "yyyy-MM-dd") // This is for bind Date with @ModelAttribute
+	@Temporal(value=TemporalType.DATE)
+	@Past(message="please enter past date")
 	private Date dateOfBirth;
+	@NotEmpty(message="cannot be empty")
 	private String gender;
+	@NotEmpty(message="cannot be empty")
 	private String street;
+	@NotEmpty(message="cannot be empty")
 	private String location;
+	@NotEmpty(message="cannot be empty")
 	private String city;
+	@NotEmpty(message="cannot be empty")
 	private String state;
+	@NotEmpty(message="cannot be empty")
 	private String pincode;
+	@NotEmpty(message="cannot be empty")
 	private String mobileNo;
 	private String emailID;
 	@Transient
+	@NotEmpty(message="cannot be empty")
 	private String password;
 	
 	public ProfileBean() {

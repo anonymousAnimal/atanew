@@ -36,10 +36,10 @@ public class UserCredentialsDaoImpl implements XyzDao<CredentialsBean> {
 	public boolean update(CredentialsBean t) {
 
 		try {
-			sessionFactory.getCurrentSession().update(t);
+			sessionFactory.getCurrentSession().merge(t);
 			return true;
 		} catch (Exception e) {
-			System.out.println("Exception :" + e.getMessage());
+			System.err.println("UserCredentialsDaoImpl.update() : Exception :" + e.getMessage());
 			return false;
 		}
 
