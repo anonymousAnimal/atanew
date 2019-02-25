@@ -1,6 +1,13 @@
 package com.ata.bean;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name="ata_tbl_route")
 public class RouteBean {
+	@Id
 	private String routeID;
 	private String source;
 	private String destination;

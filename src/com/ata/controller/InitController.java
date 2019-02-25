@@ -110,6 +110,7 @@ public class InitController {
 				session.setAttribute("credentialsBean", credentialsBean);
 				return "Profile";												// calling Profile.jsp
 				
+				
 			}
 		}
 		return "login";
