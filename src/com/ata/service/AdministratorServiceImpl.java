@@ -90,8 +90,8 @@ public class AdministratorServiceImpl implements Administrator {
 
 	@Override
 	public int deleteRoute(ArrayList<String> routeID) {
-		
-		return 0;
+		int rows=routeDaoImpl.delete(routeID);
+		return rows;
 	}
 
 	@Override
