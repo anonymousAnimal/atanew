@@ -8,6 +8,7 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.ata.bean.RouteBean;
 import com.ata.bean.VehicleBean;
 
 @Repository
@@ -25,7 +26,7 @@ public class VehicleDaoImpl implements XyzDao<VehicleBean> {
 	@Override
 	public int delete(ArrayList<String> li) {
 		Session s = ses.getCurrentSession();
-		String sql = "delete form VehicleBean v where v.vehicleid IN (:list)";
+		String sql = "delete from VehicleBean  where vehicleid in :list";
 		Query q = s.createQuery(sql);
 		q.setParameterList("list", li);
 		int rows = q.executeUpdate();
@@ -45,14 +46,14 @@ public class VehicleDaoImpl implements XyzDao<VehicleBean> {
 
 	@Override
 	public VehicleBean findByID(String s) {
-		VehicleBean b = (VehicleBean) ses.getCurrentSession().createCriteria(VehicleBean.class, s);
+		VehicleBean b = (VehicleBean) ses.getCurrentSession().get(VehicleBean.class, s);
 		return b;
 	}
 
 	@Override
 	public ArrayList<VehicleBean> findAll() {
-		ArrayList<VehicleBean> li = (ArrayList<VehicleBean>) ses.getCurrentSession().createCriteria(VehicleBean.class).list();
-		return li;
+		ArrayList< VehicleBean>al=(ArrayList<VehicleBean>) ses.getCurrentSession().createQuery("from VehicleBean").list();
+		return al;
 	}
 
 	

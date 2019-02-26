@@ -1,21 +1,27 @@
 package com.ata.controller;
 
+import java.util.ArrayList;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.ata.bean.CredentialsBean;
 import com.ata.bean.DriverBean;
+import com.ata.bean.VehicleBean;
 import com.ata.dao.DriverDaoImpl;
 import com.ata.service.Administrator;
 import com.ata.util.AuthImpl;
 
 @Controller
 @Transactional
+@RequestMapping("/Admin")
 public class AdminDriverController {
 	
 	@Autowired
@@ -32,7 +38,7 @@ public class AdminDriverController {
 		return "AddDriver";
 	}
 	
-	@RequestMapping("/addDriver1")
+	@PostMapping("/addDriver1")
 	public String addDriver1(DriverBean driverBean,Model m,HttpSession ses) 
 	{
 	CredentialsBean cb=(CredentialsBean)ses.getAttribute("credentialsBean");
@@ -45,8 +51,47 @@ public class AdminDriverController {
 		{
 			m.addAttribute("msg","INVALID");
 		}
-		return "AddDriver";
+		return "AdminDashboard";
 	}
+	
+	@RequestMapping("/modifyDriver/{id}")
+	public String modifyVehicle(@PathVariable("id")String driverID,Model m) 
+	{
+		DriverBean db=driverdao.findByID(driverID);
+		m.addAttribute("driverBean",db);
+		return "ModifyDriver";
+	}
+	@RequestMapping("/modifyDriver1")
+	public String modifyVehicle1(DriverBean driverBean,Model m) 
+	{
+		boolean res=administratorServiceImpl.modifyDriver(driverBean);
+		if(res)
+			m.addAttribute("msg","Driver modified");
+		return "AdminDashboard";
+	}
+	
+	@RequestMapping("/dodelDriver/{id}")
+	public String delDriver1( @PathVariable("id")String id,DriverBean driverBean,Model m) 
+	{
+		//CredentialsBean cb=(CredentialsBean)ses.getAttribute("credentialsBean");
+		//authenticate user
+		ArrayList<String>ar=new ArrayList<String>();
+		ar.add(id);
+		int rows=administratorServiceImpl.deleteDriver(ar);
+		m.addAttribute("msg","Driver deleted with id : "+id);
+	
+		return "AdminDashboard";
+	}
+	
+	@RequestMapping("/driverEditDelete")
+	public String goToEditDelete(Model m){
+		
+		ArrayList<DriverBean> list= driverdao.findAll();
+		m.addAttribute("list", list);
+		return "AdminDriverView";
+	}
+	
+
 	
 
 }

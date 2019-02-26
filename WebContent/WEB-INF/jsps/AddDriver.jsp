@@ -4,10 +4,12 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Insert title here</title>
+<title>ADD Driver</title>
 </head>
 <body>
-<form action="addDriver1">
+<jsp:include page="/Header.jsp"></jsp:include>
+<h1>Add Driver</h1>
+<form action="addDriver1" method="post">
 <table align="center">
 <tr><td>DriverName:<input type="text"  name="name"></td></tr>
 <tr><td>Street:<input type="text" name="street"></td></tr>
