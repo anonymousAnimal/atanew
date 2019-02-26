@@ -7,15 +7,16 @@
 <title>User Dashboard</title>
 </head>
 <body>
-<h2>Welcome ${profileBean.getUserID()}</h2> 
-<div align="right"><button onclick="window.location='../logout'">logout</button></div>
+<jsp:include page="/Header.jsp"/>
+<h2>Welcome ${profileBean.getFirstName()}[${profileBean.getUserID()}]</h2> 
+<!-- <div align="right"><button onclick="window.location='../logout'">logout</button></div> -->
 <div align="center">
 please choose below options :<br>
-<a href="Profile">View Profile</a><br>
-<a href="">view vehicles/Route Details</a><br>
-<a href="">Book Vehicle</a><br>
-<a href="">Cancel Booking</a><br>
-<a href="">View/Print Booking Details</a><br>
+<a href="Profile">View Profile</a><br><br>
+<a href="ViewVehiclesAndRoutes">view vehicles/Route Details</a><br><br>
+<a href="">Book Vehicle</a><br><br>
+<a href="">Cancel Booking</a><br><br>
+<a href="">View/Print Booking Details</a><br><br>
 </div>
 </body>
 </html>

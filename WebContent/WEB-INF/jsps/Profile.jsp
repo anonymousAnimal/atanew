@@ -26,7 +26,7 @@
 <tr><td>pincode</td><td>${profileBean.pincode}</td></tr>
 <tr><td>mobileno</td><td>${profileBean.mobileNo}</td></tr>
 <tr><td>emailID</td><td>${profileBean.emailID}</td></tr>
-<tr><td><button onclick="Dashboard">Go to DashBoard</button></td></tr>
+<tr><td><button onclick="history.go(-1)">Go to DashBoard</button></td></tr>
 </table>
 
 </body>

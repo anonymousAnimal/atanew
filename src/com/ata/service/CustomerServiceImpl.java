@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 
 import com.ata.bean.CredentialsBean;
 import com.ata.bean.ReservationBean;
@@ -15,6 +16,7 @@ import com.ata.dao.RouteDaoImpl;
 import com.ata.dao.VehicleDaoImpl;
 import com.ata.util.AuthImpl;
 
+@Controller
 public class CustomerServiceImpl implements Customer{
 
 	@Autowired
@@ -33,7 +35,8 @@ public class CustomerServiceImpl implements Customer{
 	public boolean authorizeCustomer() {
 CredentialsBean cb = (CredentialsBean)session.getAttribute("credentialsBean");
 		
-		if(authImpl.authorize(cb.getUserID()).equals("C"))
+		// if user type is otherthan "C" ie customer then return false; 
+		if(!authImpl.authorize(cb.getUserID()).equals("C"))
 		{
 			System.out.println("CustomerServiceImpl.ViewVehiclebytype() : not a valid user");
 			return false;
@@ -58,6 +61,14 @@ CredentialsBean cb = (CredentialsBean)session.getAttribute("credentialsBean");
 		else 
 			return null;
 	}
+	
+	
+	public ArrayList<VehicleBean> viewAllVehicles() {
+		if(authorizeCustomer())
+			return vehicleDaoImpl.findAll();
+		else
+			return null;
+	}
 
 	@Override
 	public ArrayList<RouteBean> viewAllRoutes() {
@@ -71,6 +82,7 @@ CredentialsBean cb = (CredentialsBean)session.getAttribute("credentialsBean");
 	public String bookVehicle(ReservationBean reservationBean) {
 		if(authorizeCustomer())
 		{
+			
 			return resDaoImpl.create(reservationBean);  //return reservationid
 		}
 		return "FAIL";
