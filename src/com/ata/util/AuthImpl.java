@@ -41,11 +41,15 @@ public class AuthImpl implements Authentication{
 	public boolean changeLoginStatus(CredentialsBean credentialsBean, int loginStatus)
 	{
 		try {
-			int cstatus = credentialsBean.getLoginStatus();
+			
+			CredentialsBean cb = ucdao.findByID(credentialsBean.getUserID());
+				
+			int cstatus = cb.getLoginStatus();
 			if(cstatus != loginStatus)
 			{
-				credentialsBean.setLoginStatus(loginStatus);
-				ucdao.update(credentialsBean);
+				cb.setLoginStatus(loginStatus);
+				ucdao.update(cb);
+				
 				return true;
 			}
 		} catch (Exception e) {

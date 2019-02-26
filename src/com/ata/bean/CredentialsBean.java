@@ -18,7 +18,7 @@ public class CredentialsBean {
 	@NotEmpty(message="Please enter the password !")
 	private String password;
 	
-	private String userType="C";
+	private String userType;
 	private int loginStatus=0;
 	
 	public CredentialsBean() {
@@ -32,6 +32,13 @@ public class CredentialsBean {
 		this.userType = userType;
 		this.loginStatus = loginStatus;
 	}
+	
+	public CredentialsBean(String uid, String pass) 
+	{
+		userID = uid;
+		password = pass;
+	}
+	
 	public String getUserID() {
 		return userID;
 	}

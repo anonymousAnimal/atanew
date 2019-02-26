@@ -46,9 +46,9 @@ public class UserCredentialsDaoImpl implements XyzDao<CredentialsBean> {
 	}
 
 	@Override
-	public CredentialsBean findByID(String s) 
+	public CredentialsBean findByID(String id) 
 	{
-		CredentialsBean cbean = (CredentialsBean) sessionFactory.getCurrentSession().get(CredentialsBean.class, s);
+		CredentialsBean cbean = (CredentialsBean) sessionFactory.getCurrentSession().get(CredentialsBean.class, id);
 		return cbean;
 	}
 

@@ -14,7 +14,7 @@
 </head>
 <body>
 <h1 align="center">LOGIN</h1>
-<f:form action="dologin" modelAttribute="credentialsBean" method="POST">
+<f:form action="dologin" modelAttribute="credentialsBean">
 <table align="center" >
 <tr><td>UserID</td><td><f:input type="text" path="userID" /></td> <td><f:errors path="userID" cssClass="errstyle"/></td></tr>
 <tr><td>Password</td><td><f:input type="password" path="password"/></td> <td><f:errors path="password" cssClass="errstyle"/></td></tr>
