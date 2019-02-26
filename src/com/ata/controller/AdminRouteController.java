@@ -3,11 +3,14 @@ package com.ata.controller;
 import java.util.ArrayList;
 
 import javax.servlet.http.HttpSession;
+import javax.websocket.server.PathParam;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -21,6 +24,7 @@ import com.ata.util.AuthImpl;
 
 @Controller
 @Transactional
+@RequestMapping("/Admin")
 public class AdminRouteController {
 
 	@Autowired
@@ -37,7 +41,7 @@ public class AdminRouteController {
 		return "CreateRoute";
 	}
 	
-	@RequestMapping("/doRoute")
+	@PostMapping("/doRoute")
 	public String addRoute1(RouteBean routeBean,Model m,HttpSession ses) 
 	{
 	CredentialsBean cb=(CredentialsBean)ses.getAttribute("credentialsBean");
@@ -50,27 +54,51 @@ public class AdminRouteController {
 		{
 			m.addAttribute("msg","INVALID");
 		}
-		return "CreateRoute";
-	}
-	@RequestMapping("/delRoute")
-	public String delRoute(Model m) 
-	{
-		ArrayList<RouteBean>al=rdao.findAll();
-		m.addAttribute("routelist",al);
-		m.addAttribute("routeBean",new RouteBean());
-		return "DelRoute";
+		return "AdminDashboard";
 	}
 	
+	@RequestMapping("/domodify/{id}")
+	public String modifyRoute(@PathVariable("id")String routeID,Model m) 
+	{
+		RouteBean rb=administratorServiceImpl.viewRoute(routeID);
+		m.addAttribute("routeBean",rb);
+		return "ModifyRoute";
+	}
+	@RequestMapping("/modifyRoute")
+	public String modifyRoute1(RouteBean routeBean,Model m) 
+	{
+		boolean res=administratorServiceImpl.modifyRoute(routeBean);
+		if(res)
+			m.addAttribute("msg","Route modified");
+		return "AdminDashboard";
+	}
+	
+//	@RequestMapping("/delRoute")
+//	public String delRoute(Model m) 
+//	{
+//		ArrayList<RouteBean>al=rdao.findAll();
+//		m.addAttribute("routelist",al);
+//		m.addAttribute("routeBean",new RouteBean());
+//		return "DelRoute";
+//	
+	
 	@RequestMapping("/dodelRoute/{id}")
-	public String delRoute1( @RequestParam("id")String id,RouteBean routeBean,Model m) 
+	public String delRoute1( @PathVariable("id")String id,RouteBean routeBean,Model m) 
 	{
 		//CredentialsBean cb=(CredentialsBean)ses.getAttribute("credentialsBean");
 		//authenticate user
 		ArrayList<String>ar=new ArrayList<String>();
 		ar.add(id);
 		int rows=administratorServiceImpl.deleteRoute(ar);
-		m.addAttribute("msg","Route deleted with id"+id);
+		m.addAttribute("msg","Route deleted with id : "+id);
 	
-		return "DelRoute";
+		return "AdminDashboard";
+	}
+	
+	@RequestMapping("/goToEditDelete")
+	public String goToEditDelete(Model m){
+		ArrayList<RouteBean> list= rdao.findAll();
+		m.addAttribute("list", list);
+		return "AdminRouteView";
 	}
 }

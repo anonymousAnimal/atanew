@@ -61,8 +61,8 @@ public class InitController {
 		return "login";
 	}
 
-	@RequestMapping(path = "/dologin", method = RequestMethod.POST)
-	public String doLogin(@Valid @ModelAttribute( name="credentialsBean") CredentialsBean credentialsBean, BindingResult bres,
+	@RequestMapping(path = "/dologin")
+	public String doLogin(@Valid CredentialsBean credentialsBean, BindingResult bres,
 			Model m, HttpSession session) {
 		
 		if (bres.hasErrors()) {
@@ -94,19 +94,18 @@ public class InitController {
 		if (result.equals("A") || result.equals("C")) {
 			System.out.println("valid user : " + result);
 			boolean res = authUtil.changeLoginStatus(credentialsBean, 1); // changing the loginstatus
-			if (res) {
+			
 				ProfileBean pb = pdao.findByID(credentialsBean.getUserID()); 					// getting profileBean from id
 				CredentialsBean cb = cdao.findByID(credentialsBean.getUserID()); 				//getting credentialsBean from id
 				m.addAttribute("profileBean", pb); 							// add it as attribute in model m
 				session.setAttribute("profileBean", pb); 					// setting profileBean object into session
 				session.setAttribute("credentialsBean", cb);
 																		// return "Profile"; // calling Profile.jsp
-				if (result.equals("A"))
-					return "redirect:Admin/Dashboard";
-				else if (result.equals("C"))
-					return "redirect:User/Dashboard";
-
-			}
+			if (result.equals("A"))
+				return "redirect:Admin/Dashboard";
+			else if (result.equals("C"))
+				return "redirect:User/Dashboard";
+				
 		}
 		return "login";
 

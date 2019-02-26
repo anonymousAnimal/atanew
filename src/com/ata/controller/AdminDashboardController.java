@@ -9,7 +9,7 @@ public class AdminDashboardController {
 	
 	
 	@RequestMapping("/Dashboard")
-	public String goToAdminDashboard() {
+	public String goToAdminDashboard(String msg) {
 		
 		return "AdminDashboard";
 	}

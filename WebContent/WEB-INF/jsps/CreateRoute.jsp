@@ -8,7 +8,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-<form action="doRoute">
+<form action="doRoute" method="POST">
 Source:<input type="text"  name="source"><br>
 Destination:<input type="text" name="destination"><br>
 Distance:<input type="text" name="distance"><br>
