@@ -12,8 +12,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.ata.bean.RouteBean;
 import com.ata.bean.VehicleBean;
-import com.ata.dao.RouteDaoImpl;
-import com.ata.dao.VehicleDaoImpl;
 import com.ata.service.CustomerServiceImpl;
 
 @Controller
