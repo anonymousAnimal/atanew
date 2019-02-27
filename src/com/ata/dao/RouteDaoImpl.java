@@ -65,8 +65,8 @@ public class RouteDaoImpl implements XyzDao<RouteBean> {
 		String routeid=(String) q.getSingleResult();
 		return routeid;
 	}
+
+
 	
-	
-	
-	
+
 }

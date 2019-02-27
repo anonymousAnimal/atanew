@@ -2,6 +2,7 @@ package com.ata.dao;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -67,7 +68,15 @@ public class ReservationDaoImpl implements XyzDao<ReservationBean>{
 		Query q=sf.getCurrentSession().createQuery(sql);
 		q.setParameter("j", journeyDate);
 		q.setParameter("r",routeid);
+		
 		ArrayList<ReservationBean> al=	(ArrayList<ReservationBean>) q.getResultList();
+		return al;
+	}
+	
+	public ArrayList<ReservationBean> getUnallotedResDrivers()
+	{
+		String sql="from ReservationBean where driverID is null";
+		ArrayList<ReservationBean> al=(ArrayList<ReservationBean>) sf.getCurrentSession().createQuery(sql).list();
 		return al;
 	}
 }
