@@ -13,7 +13,7 @@
 <h1>Modify Route</h1>
 <f:form action="/ATA/Admin/modifyRoute" modelAttribute="routeBean" >
 <table align="center">
-<tr><td>RouteID:<f:input type="text"  path="routeID" value="${routeBean.routeID}" disabled="disabled"/></td></tr>
+<tr><td>RouteID:<f:input type="text"  path="routeID" value="${routeBean.routeID}" readonly="true"/></td></tr>
 <tr><td>Source:<f:input type="text" path="source" value="${routeBean.source}"/></td></tr>
 <tr><td>Destination:<f:input type="text" path="destination" value="${routeBean.destination}"/></td></tr>
 <tr><td>Distance:<f:input type="text" path="distance" value= "${routeBean.distance}"/></td></tr>

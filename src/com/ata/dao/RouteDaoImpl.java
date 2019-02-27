@@ -44,6 +44,16 @@ public class RouteDaoImpl implements XyzDao<RouteBean> {
 		
 		return rb;
 	}
+	
+	public String getRouteID(String source,String destination)
+	{
+		String sql="select routeID from RouteBean where source=:s and destination=:d";
+		Query q=sf.getCurrentSession().createQuery(sql);
+		q.setParameter("s",source);
+		q.setParameter("d", destination);
+		String routeid=(String) q.getSingleResult();
+		return routeid;
+	}
 
 	@Override
 	public ArrayList<RouteBean> findAll() {

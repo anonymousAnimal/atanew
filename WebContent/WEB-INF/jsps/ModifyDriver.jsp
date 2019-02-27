@@ -13,7 +13,7 @@
 <h1>Modify Driver</h1>
 <f:form action="/ATA/Admin/modifyDriver1" modelAttribute="driverBean" >
 <table align="center">
-<tr><td>DriverID:<f:input type="text"  path="driverID" value="${driverBean.driverID}" disabled="disabled"/></td></tr>
+<tr><td>DriverID:<f:input type="text"  path="driverID" value="${driverBean.driverID}" readonly="true"/></td></tr>
 <tr><td>Name:<f:input type="text" path="name" value="${driverBean.name}"/></td></tr>
 <tr><td>Street:<f:input type="text" path="street" value="${driverBean.street}"/></td></tr>
 <tr><td>Location:<f:input type="text" path="location" value= "${driverBean.location}"/></td></tr>

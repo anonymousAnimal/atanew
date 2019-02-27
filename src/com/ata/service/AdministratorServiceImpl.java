@@ -13,6 +13,7 @@ import com.ata.bean.ReservationBean;
 import com.ata.bean.RouteBean;
 import com.ata.bean.VehicleBean;
 import com.ata.dao.DriverDaoImpl;
+import com.ata.dao.ReservationDaoImpl;
 import com.ata.dao.RouteDaoImpl;
 import com.ata.dao.VehicleDaoImpl;
 import com.ata.util.DBSequenceUtil;
@@ -32,6 +33,8 @@ public class AdministratorServiceImpl implements Administrator {
 	DriverDaoImpl driverDaoImpl;
 	@Autowired
 	DBSequenceUtil dbseq;
+	@Autowired
+	ReservationDaoImpl resdaoimpl;
 	
 	@Override
 	public String addVehicle(VehicleBean vehicleBean) {
@@ -82,9 +85,14 @@ public class AdministratorServiceImpl implements Administrator {
 
 	@Override
 	public boolean allotDriver(String reservationID, String driverID) {
+		//first check if driverid is not alloted to another
+		ReservationBean rb=resdaoimpl.findByID(reservationID);
+		rb.setDriverID(driverID);
+		//pending status set
+		rb.setBookingStatus("SUCCESS");
+		boolean res=resdaoimpl.update(rb);
 		
-		
-		return false;
+		return res;
 	}
 
 	@Override
@@ -123,9 +131,8 @@ public class AdministratorServiceImpl implements Administrator {
 
 	@Override
 	public ArrayList<ReservationBean> viewBookingDetails(Date journeyDate, String source, String destination) {
-		
-		
-		return null;
+		ArrayList<ReservationBean> al=resdaoimpl.findBooking(journeyDate, source, destination);
+		return al;
 	}
 
 }
