@@ -12,7 +12,7 @@
 <h1>Modify Vehicle</h1>
 <f:form action="/ATA/Admin/modifyVehicle1" modelAttribute="vehicleBean" >
 <table align="center">
-<tr><td>VehicleID:<f:input type="text"  path="vehicleID" value="${vehicleBean.vehicleID}" /></td></tr>
+<tr><td>VehicleID:<f:input type="text"  path="vehicleID" value="${vehicleBean.vehicleID}" readonly="true" /></td></tr>
 <tr><td>VehicleName:<f:input type="text"  path="name" value="${vehicleBean.name}" /></td></tr>
 <tr><td>VehicleType:<f:input type="text"  path="type" value="${vehicleBean.type}" /></td></tr>
 <tr><td>VehicleRegistrationNumber:<f:input type="text"  path="registrationNumber" value="${vehicleBean.registrationNumber}" /></td></tr>
