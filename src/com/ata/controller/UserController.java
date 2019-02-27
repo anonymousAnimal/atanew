@@ -9,7 +9,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.ata.bean.ReservationBean;
 import com.ata.bean.RouteBean;
 import com.ata.bean.VehicleBean;
 import com.ata.service.CustomerServiceImpl;
@@ -36,13 +39,15 @@ public class UserController {
 	}
 	
 	@RequestMapping("/ViewVehiclesAndRoutes")
-	public String goToViewVehiclesAndRoutes(Model m) {
-		
+	public String goToViewVehiclesAndRoutes(Model m) 
+	{
 		ArrayList<VehicleBean> vehicleList = cservice.viewAllVehicles();
 		ArrayList<RouteBean> routeList = cservice.viewAllRoutes();
 		m.addAttribute("vehicleList",vehicleList);
 		m.addAttribute("routeList",routeList);
+		
 		return "ViewVR";
 	}
+	
 	
 }

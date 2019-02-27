@@ -45,6 +45,17 @@ public class RouteDaoImpl implements XyzDao<RouteBean> {
 		return rb;
 	}
 	
+	
+
+	@Override
+	public ArrayList<RouteBean> findAll() {
+		ArrayList< RouteBean>al=(ArrayList<RouteBean>) sf.getCurrentSession().createQuery("from RouteBean").list();
+		return al;
+	}
+
+	
+	/////////////////////////////////////extra methods/////////////////////////////
+	
 	public String getRouteID(String source,String destination)
 	{
 		String sql="select routeID from RouteBean where source=:s and destination=:d";
@@ -54,11 +65,8 @@ public class RouteDaoImpl implements XyzDao<RouteBean> {
 		String routeid=(String) q.getSingleResult();
 		return routeid;
 	}
-
-	@Override
-	public ArrayList<RouteBean> findAll() {
-		ArrayList< RouteBean>al=(ArrayList<RouteBean>) sf.getCurrentSession().createQuery("from RouteBean").list();
-		return al;
-	}
-
+	
+	
+	
+	
 }

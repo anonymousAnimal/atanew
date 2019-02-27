@@ -1,6 +1,8 @@
 package com.ata.service;
 
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.servlet.http.HttpSession;
 
@@ -35,6 +37,10 @@ public class CustomerServiceImpl implements Customer{
 	public boolean authorizeCustomer() {
 CredentialsBean cb = (CredentialsBean)session.getAttribute("credentialsBean");
 		
+		if(authImpl == null) {
+			System.out.println("customerServicimpl.authorize : authimpl is null");
+		}
+	
 		// if user type is otherthan "C" ie customer then return false; 
 		if(!authImpl.authorize(cb.getUserID()).equals("C"))
 		{
@@ -116,5 +122,80 @@ CredentialsBean cb = (CredentialsBean)session.getAttribute("credentialsBean");
 	public ReservationBean printBookingDetails(String reservationID) {
 		return viewBookingDetails(reservationID);
 	}
+	
+	/////////////////////////////////extra methods////////////////////////////////
+	
+	
+	public ArrayList<VehicleBean> viewAvailVehiclesByType(String vehicleType)
+	{
+		if(authorizeCustomer())
+		{
+			try {
+			return vehicleDaoImpl.findAvailVehicleByType(vehicleType);
+			}
+			catch(Exception e) {
+				System.out.println("Exception at CustomerService.findAvailVehicleByType() : "+e.getMessage());
+				return null;
+			}
+		}
+		else
+			return null;
+	}
+		
+		public ArrayList<VehicleBean> viewAvailVehiclesBySeat(String seat)
+		{
+			if(authorizeCustomer())
+			{
+				try {
+				return vehicleDaoImpl.findAvailVehicleBySeats(seat);
+				}
+				catch(Exception e) {
+					System.out.println("Exception at CustomerService.findAvailVehicleBySeat() : "+e.getMessage());
+					return null;
+				}
+			}
+		else
+			return null;
+	}
+		
+	public ArrayList<String> getDestination(String source){
+		try {
+		if(authorizeCustomer())
+		{
+			
+				
+					//code
+					ArrayList<RouteBean> routeList = routeDaoImpl.findAll();
+					System.out.println("received routes "+routeList);
+					ArrayList<String> destinationList = new ArrayList<String>();
+					for(RouteBean r : routeList)
+					{
+						if(r.getSource().toUpperCase().equals(source.toUpperCase()))
+							destinationList.add(r.getDestination());
+					}
+					return destinationList;
+				
+				}
+		}
+		
+				catch(Exception e) {
+					System.out.println("Exception at CustomerService.getdestination() : "+e.getMessage());
+					return null;
+				}
+			
+		
+		return null;
+	}
+	
+	
+	public Set<String> findAllSources() {
+		Set<String> set = new HashSet<String>();
+		ArrayList<RouteBean> rlist = routeDaoImpl.findAll();
+		for(RouteBean r : rlist) {
+			set.add(r.getDestination());
+		}
+		return set;
+	}
+	
 
 }

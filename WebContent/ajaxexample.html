@@ -1,0 +1,54 @@
+<html>
+<head>
+<script>
+	var req;
+	var url="Ajax/getName/?name=";
+	function checkajax(){
+		try{
+		req = new XMLHttpRequest();
+		/* alert("xmlhttprequest done") */
+		return;
+		}
+		catch(e){}
+		
+		try{
+			req = new ActiveXObject("Msxm2.XMLHTTP");
+			/* alert("activex msxm2 done"); */
+			return;
+		}
+		catch(e){}
+		
+		try{
+			req = new ActiveXObject("Microsoft.XMLHTTP");
+			/* alert("activex microsoft xmlhttp done"); */
+			return;
+		}catch(e){}
+		
+		alert("your browser doesnot support ajax");
+	}
+	
+	function getData(text){
+		req.onreadystatechange = function(){
+			if(req.readyState == 4 && req.status == 200)
+			document.getElementById('karan').innerHTML= req.responseText;
+			/* else
+				
+			alert("req status : "+req.status + " ready state : "+ req.readystate); */
+		
+		}
+		
+		req.open("POST", url+text, true);
+		req.send();
+	}
+	
+</script>
+</head>
+	<body onload="checkajax()">
+	<input type = "text" id= "tbname" onkeyup="getData(this.value)">
+	<div id ="karan">
+		<select id="names" >
+			<option value="none">NONE</option>
+		</select>
+	</div>
+	<body>
+</html>
