@@ -16,6 +16,7 @@
 <context:property-placeholder location="classpath:jdbc1.properties"/>
 <mvc:annotation-driven/>
 <mvc:view-controller path="/" view-name="index"/>
+<mvc:resources location="/" mapping="/**"></mvc:resources>
 
  <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 <property name="prefix" value="/WEB-INF/jsps/"></property>
