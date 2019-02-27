@@ -52,4 +52,13 @@ public class DriverDaoImpl implements XyzDao<DriverBean>{
 		return al;
 	}
 
+	
+	public ArrayList<DriverBean> findUnallotedDrivers()
+	{
+		String sql="select d.driverID from DriverBean d where d.driverID not in (select r.driverID from ReservationBean r where r.driverID is not null)";
+		Query q=sf.getCurrentSession().createQuery(sql);
+		return (ArrayList<DriverBean>) q.list();
+	
+	}
+	
 }

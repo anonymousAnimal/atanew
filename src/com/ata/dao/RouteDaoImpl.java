@@ -60,5 +60,7 @@ public class RouteDaoImpl implements XyzDao<RouteBean> {
 		ArrayList< RouteBean>al=(ArrayList<RouteBean>) sf.getCurrentSession().createQuery("from RouteBean").list();
 		return al;
 	}
+	
+	
 
 }

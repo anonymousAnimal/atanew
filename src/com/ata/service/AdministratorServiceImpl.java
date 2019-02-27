@@ -86,11 +86,13 @@ public class AdministratorServiceImpl implements Administrator {
 	@Override
 	public boolean allotDriver(String reservationID, String driverID) {
 		//first check if driverid is not alloted to another
+		boolean res=false;
 		ReservationBean rb=resdaoimpl.findByID(reservationID);
-		rb.setDriverID(driverID);
-		//pending status set
-		rb.setBookingStatus("SUCCESS");
-		boolean res=resdaoimpl.update(rb);
+		if(rb.getDriverID()==null&&rb.getBookingStatus()==null){
+			rb.setDriverID(driverID);
+			rb.setBookingStatus("SUCCESS");
+			res=resdaoimpl.update(rb);
+		}
 		
 		return res;
 	}

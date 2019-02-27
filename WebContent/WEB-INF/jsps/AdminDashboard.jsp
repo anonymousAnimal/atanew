@@ -14,7 +14,9 @@
 	<a href="/ATA/Admin/addDriver">Add </a> <a href="driverEditDelete">  Modify/Delete</a> Driver<br>
 	<a href="/ATA/Admin/addVehicle">Add </a><a href="vehicleEditDelete"> Modify/Delete</a> Vehicle<br>
 	<a href="/ATA/Admin/addroute">Add </a><a href="goToEditDelete"> Modify/Delete</a> Route<br>
-	<a href="">Allot Driver to Booking</a><br><br>
+	<a href="/ATA/Admin/ShowUnallotedDrivers">Allot Driver to Booking</a><br><br>
+	<a href="/ATA/Admin/AdminView">View Booking Details </a><br><br>
+	
 	<h5 style="color:green;">${msg}</h5>
 	</div>
 	
