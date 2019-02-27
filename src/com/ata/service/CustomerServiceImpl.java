@@ -82,7 +82,8 @@ CredentialsBean cb = (CredentialsBean)session.getAttribute("credentialsBean");
 	public String bookVehicle(ReservationBean reservationBean) {
 		if(authorizeCustomer())
 		{
-			
+			//
+						
 			return resDaoImpl.create(reservationBean);  //return reservationid
 		}
 		return "FAIL";

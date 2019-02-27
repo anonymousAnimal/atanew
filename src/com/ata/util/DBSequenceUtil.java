@@ -73,7 +73,7 @@ public class DBSequenceUtil {
 		
 		if(rowcnt < 1)
 		{
-			System.out.println("DBSequenceUtil.getID() : ");
+			System.out.println("DBSequenceUtil.getID() : error updating dbsequence");
 			return null;
 		}
 		else
