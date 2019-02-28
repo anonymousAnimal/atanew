@@ -51,7 +51,7 @@ public class ReservationDaoImpl implements XyzDao<ReservationBean>{
 
 	@Override
 	public ReservationBean findByID(String s) {
-		ReservationBean b = (ReservationBean) sf.getCurrentSession().createCriteria(ReservationBean.class, s);
+		ReservationBean b = (ReservationBean) sf.getCurrentSession().get(ReservationBean.class, s);
 		return b;
 	}
 
@@ -61,18 +61,21 @@ public class ReservationDaoImpl implements XyzDao<ReservationBean>{
 		return li;
 	}
 	
-	public ArrayList<ReservationBean>findBooking(Date journeyDate, String source, String destination)
+///////////////////EXTRA METHODS/////////////////////
+	
+	
+	public ArrayList<ReservationBean>findBookingByJR(Date journeyDate,String routeID)
 	{
-		String routeid=routeDaoImpl.getRouteID(source, destination);
 		String sql="from ReservationBean where journeyDate=:j and routeid=:r ";
 			
 		Query q=sf.getCurrentSession().createQuery(sql);
 		q.setParameter("j", journeyDate);
-		q.setParameter("r",routeid);
+		q.setParameter("r",routeID);
 		
 		ArrayList<ReservationBean> al=	(ArrayList<ReservationBean>) q.getResultList();
 		return al;
 	}
+	
 	
 	public ArrayList<ReservationBean> getUnallotedResDrivers()
 	{
