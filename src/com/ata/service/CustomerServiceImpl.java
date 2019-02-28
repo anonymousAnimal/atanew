@@ -1,18 +1,23 @@
 package com.ata.service;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.TreeSet;
 
 import javax.servlet.http.HttpSession;
 
+import org.hibernate.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
 import com.ata.bean.CredentialsBean;
+import com.ata.bean.PaymentBean;
 import com.ata.bean.ReservationBean;
 import com.ata.bean.RouteBean;
 import com.ata.bean.VehicleBean;
+import com.ata.dao.PaymentDaoImpl;
 import com.ata.dao.ReservationDaoImpl;
 import com.ata.dao.RouteDaoImpl;
 import com.ata.dao.VehicleDaoImpl;
@@ -34,21 +39,31 @@ public class CustomerServiceImpl implements Customer{
 	@Autowired
 	HttpSession session;
 	
-	public boolean authorizeCustomer() {
-CredentialsBean cb = (CredentialsBean)session.getAttribute("credentialsBean");
-		
-		if(authImpl == null) {
-			System.out.println("customerServicimpl.authorize : authimpl is null");
-		}
+	@Autowired
+	PaymentDaoImpl paymentDaoImpl;
 	
-		// if user type is otherthan "C" ie customer then return false; 
-		if(!authImpl.authorize(cb.getUserID()).equals("C"))
-		{
-			System.out.println("CustomerServiceImpl.ViewVehiclebytype() : not a valid user");
-			return false;
-		}
+	public boolean authorizeCustomer() {
 		
 		return true;
+//		CredentialsBean cb = (CredentialsBean)session.getAttribute("credentialsBean");
+//		if(cb==null)
+//		{
+//			System.out.println("credentialsbean is null !!!  so cannot authorize .please login again!");
+//			return false;
+//		}
+//		
+//		if(authImpl == null) {
+//			System.out.println("customerServicimpl.authorize : authimpl is null");
+//		}
+//	
+//		// if user type is otherthan "C" ie customer then return false; 
+//		if(!authImpl.authorize(cb.getUserID()).equals("C"))
+//		{
+//			System.out.println("CustomerServiceImpl.ViewVehiclebytype() : not a valid user");
+//			return false;
+//		}
+//		
+//		return true;
 	}
 	
 	@Override
@@ -189,13 +204,73 @@ CredentialsBean cb = (CredentialsBean)session.getAttribute("credentialsBean");
 	
 	
 	public Set<String> findAllSources() {
-		Set<String> set = new HashSet<String>();
+		Set<String> set = new TreeSet<String>();
 		ArrayList<RouteBean> rlist = routeDaoImpl.findAll();
 		for(RouteBean r : rlist) {
-			set.add(r.getDestination());
+			set.add(r.getSource());
 		}
 		return set;
 	}
 	
+	
+	public Set<String> getAllVehicleTypes(){
+		Set<String> set = new TreeSet<String>();
+		ArrayList<VehicleBean> vlist = vehicleDaoImpl.findAll();
+		for(VehicleBean s : vlist)
+			set.add(s.getType());
+		return set;
+	}
+	
+	public Set<String> getAllVehicleSeats(){
+		Set<String> set = new TreeSet<String>();
+		ArrayList<VehicleBean> vlist = vehicleDaoImpl.findAll();
+		for(VehicleBean s : vlist)
+			set.add(""+s.getSeatingCapacity());
+		return set;
+	}
+	
+	
+	public Set<VehicleBean> getVehiclesBySeatAndType(String type, String seat){
+		
+		ArrayList<VehicleBean> list = vehicleDaoImpl.findAll();
+		Set<VehicleBean> set = new TreeSet<VehicleBean>(new Comparator<VehicleBean>() {
+
+			@Override
+			public int compare(VehicleBean o1, VehicleBean o2) {
+				return o1.getName().toUpperCase().trim().compareTo(o2.getName().toUpperCase().trim());
+			}
+		});
+		
+		for(VehicleBean v : list) {
+			String t = v.getType();
+			String s = ""+v.getSeatingCapacity();
+			
+			if((type.toUpperCase().trim().equals(t.toUpperCase().trim()) && seat.toUpperCase().trim().equals(s.toUpperCase().trim())) 
+					| (type.equals("") && seat.toUpperCase().trim().equals(s.toUpperCase().trim())) 
+					| (type.toUpperCase().trim().equals(t.toUpperCase().trim()) && seat.equals(""))
+					| (type.equals("") && seat.equals("")))
+				set.add(v);
+		}
+		return set;
+		
+		
+	}
+	
+	public boolean makePayment(PaymentBean paymentBean, Double payment) {
+		
+		//validating carddetails
+		PaymentBean pb = paymentDaoImpl.findByID(paymentBean.getCreditCardNumber());
+		if(!pb.getValidFrom().trim().toUpperCase().equals(paymentBean.getValidFrom().trim().toUpperCase())
+				| !pb.getValidTo().trim().toUpperCase().equals(paymentBean.getValidTo().trim().toUpperCase()))
+			return false;        //failed to validate
+		
+		if(paymentBean.getBalance() < payment)
+			return false;
+		
+		paymentBean.setBalance(paymentBean.getBalance()-payment);
+		
+		return true;
+		
+	}
 
 }

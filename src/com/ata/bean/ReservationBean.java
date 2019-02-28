@@ -17,7 +17,7 @@ public class ReservationBean {
 	private Date journeyDate;
 	private String vehicleID;
 	private String driverID;
-	private String bookingStatus;
+	private String bookingStatus = "pending";
 	private double totalFare;
 	private String boardingPoint;
 	private String dropPoint;

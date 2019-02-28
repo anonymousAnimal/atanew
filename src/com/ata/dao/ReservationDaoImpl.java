@@ -23,6 +23,7 @@ public class ReservationDaoImpl implements XyzDao<ReservationBean>{
 
 	@Override
 	public String create(ReservationBean bean) {
+		
 		String id = (String) sf.getCurrentSession().save(bean);
 		return id;
 	}

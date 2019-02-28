@@ -28,8 +28,8 @@ var req;
 		alert("your browser doesnot support ajax");
 	}
 	
-	function getData(text, id){
-		console.log("get vehicles called");
+	function getDestination(text, id){
+		console.log("get destination called");
 		var url="getdestination/?source="+text;
 		req.onreadystatechange = function(){
 			if(req.readyState == 4 && req.status == 200)
@@ -40,20 +40,42 @@ var req;
 		req.open("GET", url, true);
 		req.send();
 	}
+	
+	
+	
 
-function getvehicles(id){
+	function getVehicles(sidtype, sidseat, did){
 
-	var res = document.getElementById(id).checked;
-	console.log("get vehicles called");
-	if(res)
-		text = 'type';
-	else
-		text = 'seat';
+	var seltype = document.getElementById(sidtype).value;	
+	var selseat = document.getElementById(sidseat).value;		
+	
+	
+	
+	if(seltype=="NONE" && selseat =="NONE")
+		return;
 		
-		var url="getvehicles/?criteria="+text;
+	
+		var url="getvehicles/?type="+seltype+"&seat="+selseat;
+		req.onreadystatechange = function()
+		{
+			if(req.readyState == 4 && req.status == 200)
+			document.getElementById(did).innerHTML= req.responseText;
+		
+		}
+		
+		req.open("GET", url, true);
+		req.send();
+	}
+	
+	
+	function checkCard(txtCardId, txtValidFromId, txtValidToId, divId)
+	{
+		console.log("checkcard() called");
+		var url="checkCard/?card="+txtCardId+"&validfrom="+txtValidFromId+"&validTo="+txtValidToId;
+		
 		req.onreadystatechange = function(){
 			if(req.readyState == 4 && req.status == 200)
-			document.getElementById(id).innerHTML= req.responseText;
+			document.getElementById(divId).innerHTML= req.responseText;
 		
 		}
 		

@@ -80,17 +80,17 @@ public ArrayList<VehicleBean> findBySeats(int seats){
 
 	public ArrayList<VehicleBean> findAvailVehicleByType(String type){
 		
-		String qstring = "from VehicleBean v where v.type = ? and v.vehicleID not in (select r.vehicleID from ReservationBean r )";
+		String qstring = "from VehicleBean v where v.type = :type and v.vehicleID not in (select r.vehicleID from ReservationBean r )";
 		org.hibernate.query.Query<VehicleBean> query = ses.getCurrentSession().createQuery(qstring);
-		query.setParameter(1, type);
+		query.setParameter("type", type);
 		return (ArrayList<VehicleBean>)query.list();
 	}
 	
 	public ArrayList<VehicleBean> findAvailVehicleBySeats(String seats){
 		
-		String qstring = "from VehicleBean v where v.seatingCapacity = ? and v.vehicleID not in (select r.vehicleID from ReservationBean r )";
+		String qstring = "from VehicleBean v where v.seatingCapacity = :seats and v.vehicleID not in (select r.vehicleID from ReservationBean r )";
 		org.hibernate.query.Query<VehicleBean> query = ses.getCurrentSession().createQuery(qstring);
-		query.setParameter(1, seats);
+		query.setParameter("seats", Integer.parseInt(seats));
 		return (ArrayList<VehicleBean>)query.list();
 	}
 }

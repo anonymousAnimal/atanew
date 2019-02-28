@@ -64,6 +64,7 @@ public class InitController {
 	@RequestMapping(path = "/dologin")
 	public String doLogin(@Valid CredentialsBean credentialsBean, BindingResult bres,
 			Model m, HttpSession session) {
+		session.setMaxInactiveInterval(0);
 		
 		if (bres.hasErrors()) {
 			System.out.println("some error occured");
