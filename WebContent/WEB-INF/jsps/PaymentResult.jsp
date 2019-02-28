@@ -31,7 +31,7 @@
 	
 	<br>
 	<div align="center">
-	<form action="/User/Dashboard" >
+	<form action="User/Dashboard" >
 	<input type="submit" value="Go To DashBoard">
 	</form>
 	</div>

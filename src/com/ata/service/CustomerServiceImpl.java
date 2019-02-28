@@ -258,17 +258,28 @@ public class CustomerServiceImpl implements Customer{
 	
 	public boolean makePayment(PaymentBean paymentBean, Double payment) {
 		
+		
+		
 		//validating carddetails
 		PaymentBean pb = paymentDaoImpl.findByID(paymentBean.getCreditCardNumber());
 		if(!pb.getValidFrom().trim().toUpperCase().equals(paymentBean.getValidFrom().trim().toUpperCase())
 				| !pb.getValidTo().trim().toUpperCase().equals(paymentBean.getValidTo().trim().toUpperCase()))
+		{
+			System.out.println("invalid card");
 			return false;        //failed to validate
+		}
+		
+		paymentBean = paymentDaoImpl.findByID(paymentBean.getCreditCardNumber());
 		
 		if(paymentBean.getBalance() < payment)
+		{
+			System.out.println("credit = "+paymentBean.getBalance()+"   payment ="+payment);
+			System.out.println("payment is more than balance");
 			return false;
+		}
 		
 		paymentBean.setBalance(paymentBean.getBalance()-payment);
-		
+		System.out.println("payment done!!!");
 		return true;
 		
 	}

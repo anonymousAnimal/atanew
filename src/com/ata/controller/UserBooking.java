@@ -182,6 +182,7 @@ public class UserBooking {
 			System.out.println("saving reservationbean result : "+res);
 			m.addAttribute("msg","payment successful :)");
 		}
+		else
 			m.addAttribute("msg","payment unsuccessful :(");
 		return "PaymentResult";
 	}
