@@ -118,7 +118,7 @@ public class UserBooking {
 	
 	
 	@RequestMapping(path="/Page2",method=RequestMethod.POST)
-	public String bookingPage1(@ModelAttribute("registrationBean") ReservationBean reservationBean, @RequestParam("source") String source,
+	public String bookingPage1(@ModelAttribute("reservationBean") ReservationBean reservationBean, @RequestParam("source") String source,
 			@RequestParam("destination")String destination,
 			@RequestParam("vehicleid")String vehicleid, Model m, HttpSession session) {
 		
@@ -188,9 +188,27 @@ public class UserBooking {
 	}
 	
 	
+	@RequestMapping(path="/CancelBooking")
+	public String cancelBooking(Model m) {
+		
+		ArrayList<ReservationBean> reservationList = rsvDaoImpl.findAll();
+		m.addAttribute("reservationList",reservationList);
+		return "CancelBooking";
+	}
+	
+	
+	@RequestMapping(path="/doCancelBooking")
+	public @ResponseBody String doCancelBooking(@RequestParam("reservationID") String reservationID, HttpSession session) {
+		CredentialsBean credentialsBean = (CredentialsBean)session.getAttribute("credentialsBean");
+		boolean res = cservice.cancelBooking(credentialsBean.getUserID(), reservationID);
+		return res+"";
+	}
+	
 	@InitBinder
 	protected void initBinder(WebDataBinder binder) {
 		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 		binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, false));
 	}
+	
+	
 }

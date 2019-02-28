@@ -82,3 +82,38 @@ var req;
 		req.open("GET", url, true);
 		req.send();
 	}
+	
+	
+	function cancelBooking(rowId, divId){
+		
+		var res = confirm("Do you want to Delete this booking? ");
+		if(!res){
+			console.log("res is false");
+			return;
+		}
+		
+		console.log("cancelBooking() called");
+		var url="doCancelBooking/?reservationID="+rowId;
+		
+		req.onreadystatechange = function(){
+			if(req.readyState == 4 && req.status == 200)
+			var result = req.responseText;
+			if(result=="true")
+				{
+				var row = document.getElementById(rowId);
+			    row.parentNode.removeChild(row);
+			    document.getElementById("msg").value="booking successfully cancelled !!!";
+			    return;
+				}
+			else
+				{
+				document.getElementById("msg").value="some error has occured at backend !! try again";
+					return;
+				}
+		
+		}
+		
+		req.open("GET", url, true);
+		req.send();
+		
+	}
