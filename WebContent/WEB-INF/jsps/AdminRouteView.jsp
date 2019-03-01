@@ -8,7 +8,7 @@
 <title>Edit/Delete</title>
 </head>
 <body>
-<jsp:include page="/Header.jsp"/>
+<jsp:include page="/HeaderAdmin.jsp"/>
 <table cellspacing="10px" align="center">
 <tr><th>RouteID</th><th>Source</th><th>Destination</th><th>Distance</th><th>TravelDuration</th><th>Edit</th><th>Delete</th></tr>
 	<c:forEach var="r"  items="${list}">

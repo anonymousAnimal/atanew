@@ -9,7 +9,7 @@
 <title>view details</title>
 </head>
 <body>
-<jsp:include page="/Header.jsp"></jsp:include>
+<jsp:include page="/HeaderUser.jsp"></jsp:include>
 <div align="center">
 	
 	<form action="doViewBooking" target="_blank">

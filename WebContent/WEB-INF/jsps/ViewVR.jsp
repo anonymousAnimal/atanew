@@ -15,7 +15,7 @@
 <title>Available vehicles and routes</title>
 </head>
 <body>
-<jsp:include page="/Header.jsp"></jsp:include>
+<jsp:include page="/HeaderUser.jsp"></jsp:include>
 	
 	<table align="center">
 	<caption>list of Vehicles</caption>

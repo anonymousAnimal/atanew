@@ -7,8 +7,9 @@
 <title>Insert title here</title>
 </head>
 <body>
+<jsp:include page="/HeaderAdmin.jsp"></jsp:include>
 <h1>ADD VEHICLE</h1>
-<jsp:include page="/Header.jsp"></jsp:include>
+
 <form action="addVehicle1" method="post">
 <table align="center">
 <tr><td>VehicleName:<input type="text"  name="name"></td></tr>

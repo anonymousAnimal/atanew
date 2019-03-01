@@ -136,7 +136,7 @@ public class AdministratorServiceImpl implements Administrator {
 	public ArrayList<ReservationBean> viewBookingDetails(Date journeyDate, String source, String destination) 
 	{
 		RouteBean routeBean=routeDaoImpl.getRouteBySD(source, destination);
-		System.out.println("---------------routeid----"+routeBean.getRouteID());
+		System.out.println("service layer : view booking details : routeid"+routeBean.getRouteID());
 		ArrayList<ReservationBean> al=resdaoimpl.findBookingByJR(journeyDate,routeBean.getRouteID());
 		return al;
 	}

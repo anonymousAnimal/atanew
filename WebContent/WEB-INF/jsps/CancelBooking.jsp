@@ -10,7 +10,7 @@
 <title>Cancel Booking</title>
 </head>
 <body onload="checkajax()">
-	<jsp:include page="/Header.jsp"></jsp:include>
+	<jsp:include page="/HeaderUser.jsp"></jsp:include>
 	<div align="center">
 	<table>
 	<caption>Booking Details : </caption>

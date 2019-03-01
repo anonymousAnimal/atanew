@@ -9,7 +9,7 @@
 <title>Insert title here</title>
 </head>
 <body onload="checkAjax()">
-<jsp:include page="/Header.jsp"></jsp:include>
+<jsp:include page="/HeaderAdmin.jsp"></jsp:include>
 <div id="result">
 
 Source:<br>

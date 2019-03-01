@@ -73,47 +73,27 @@ public class ReservationDaoImpl implements XyzDao<ReservationBean>{
 	{
 		String sql="from ReservationBean where journeyDate=:j and routeID=:r ";
 		
-		SimpleDateFormat formatter=new SimpleDateFormat("yyyy-MM-dd");
+		Date startDate = journeyDate;
+		Date endDate = (Date) startDate.clone();
+		endDate.setHours(23);
+		endDate.setMinutes(59);
+		endDate.setSeconds(59);
+
 		
-		String jdate=formatter.format(journeyDate);
-		Date startDate = null;
-		Date fromDate = null;
-		Date fromDate2 =null;
-		Date toDate2=null;
-		try {
-			startDate = formatter.parse(jdate+" 00:00:00");
-			 fromDate = formatter.parse(jdate+" 23:59:59");
-			 Calendar calendar = Calendar.getInstance();
-			 calendar.set(Calendar.HOUR_OF_DAY, 0);
-			 calendar.set(Calendar.MINUTE, 0);
-			 calendar.set(Calendar.SECOND, 0);
-			  fromDate2 = calendar.getTime();
-
-			 calendar.set(Calendar.HOUR_OF_DAY, 23);
-			 calendar.set(Calendar.MINUTE, 59);
-			 calendar.set(Calendar.SECOND, 59);
-			 toDate2 = calendar.getTime();
-
-		} catch (ParseException e) {
-			System.out.println("Exception in date parsing");
-			e.printStackTrace();
-		}
-		/*System.out.println(startDate);
-		System.out.println(fromDate);*/
-		System.out.println("-------------"+journeyDate+"-------"+routeID);
+		System.out.println("startenddate"+startDate+","+endDate);
+		
+		
 		Session s=sf.getCurrentSession();
 		Criteria c=	s.createCriteria(ReservationBean.class);
-		c.add(Restrictions.between("journeyDate", fromDate2,toDate2));
+		c.add(Restrictions.between("journeyDate", startDate,endDate));
 		Query q=s.createQuery(sql);
-		
-		//q.setParameter("j","2019-02-27");
-		
-			q.setDate("j",journeyDate);
-			q.setParameter("r",routeID);
+		q.setDate("j",journeyDate);
+		q.setParameter("r",routeID);
 			
 					
 		
 		ArrayList<ReservationBean> al=	(ArrayList<ReservationBean>) q.list();
+		System.out.println("reservation list : "+al);
 		return al;
 	}
 	

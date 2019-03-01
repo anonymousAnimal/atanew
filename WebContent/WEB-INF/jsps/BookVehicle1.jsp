@@ -12,7 +12,7 @@
 <title>Book vehicle</title>
 </head>
 <body onload="checkajax()">
-<jsp:include page="/Header.jsp"></jsp:include>
+<jsp:include page="/HeaderUser.jsp"></jsp:include>
 
 	<f:form action="Page2" modelAttribute="reservationBean" method="POST">
 	journey date : <f:input  type="date" path="journeyDate" ></f:input>

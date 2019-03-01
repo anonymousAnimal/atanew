@@ -10,7 +10,7 @@
 <body>
 <%-- <form action="Logout" >
 <button type="submit">logout</button> </form>--%>
-<jsp:include page="/Header.jsp"></jsp:include>
+<jsp:include page="/HeaderUser.jsp"></jsp:include>
 
 <h1>Your Details : </h1>
 <table align="center">

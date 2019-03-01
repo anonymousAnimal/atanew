@@ -9,7 +9,7 @@
 <title>Insert title here</title>
 </head>
 <body onload="checkAjax()">
-<jsp:include page="/Header.jsp"/>
+<jsp:include page="/HeaderAdmin.jsp"/>
 <table cellspacing="10px" align="center">
 <tr><th>ReservationID</th><th>UserID</th><th>RouteID</th><th>BookingDate</th><th>JourneyDate</th><th>VehicleID</th><th>DriverID</th><th>BookingStatus</th><th>TotalFare</th><th>BoardingPoint</th><th>DropPoint</th><th>Allot Driver</th></tr>
 	

@@ -8,7 +8,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-<jsp:include page="/Header.jsp"></jsp:include>
+<jsp:include page="/HeaderAdmin.jsp"></jsp:include>
 <table cellspacing="10px" align="center">
 <tr><th>VehicleID</th><th>Name</th><th>Type</th><th>RegistrationNo</th><th>SeatingCapacity</th><th>FarePerKm</th><th>Edit</th><th>Delete</th></tr>
 	<c:forEach var="r"  items="${list}">
