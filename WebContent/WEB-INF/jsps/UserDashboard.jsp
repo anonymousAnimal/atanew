@@ -27,7 +27,7 @@
 
 <div class="card" onclick="" style="display:block-inline" >
 <a href = "ViewVehiclesAndRoutes">
-  <img src="/ATA/static/images/male_avatar.png" alt="Avatar" style="width:100%" ></a>
+  <img src="/ATA/static/images/route.jpg" alt="Avatar" style="width:100%" ></a>
   <div class="container" >
   <h4 >
   <a href = "ViewVehiclesAndRoutes">
@@ -40,7 +40,7 @@
 
 <div class="card" onclick="" style="display:block-inline" >
 <a href = "/ATA/Booking/BookVehicle">
-  <img src="/ATA/static/images/male_avatar.png" alt="Avatar" style="width:100%" ></a>
+  <img src="/ATA/static/images/car.png" alt="Avatar" style="width:100%" ></a>
   <div class="container" >
   <h4 >
   <a href = "/ATA/Booking/BookVehicle">
@@ -54,7 +54,7 @@
 <a href = "/ATA/Booking/CancelBooking">
   <img src="/ATA/static/images/male_avatar.png" alt="Avatar" style="width:100%" ></a>
   <div class="container" >
-  <h4 >
+  <h4>
   <a href = "/ATA/Booking/CancelBooking">
   <b>cancel booking
   </b> 
