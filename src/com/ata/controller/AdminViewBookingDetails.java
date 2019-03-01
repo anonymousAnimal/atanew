@@ -4,6 +4,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Locale;
 import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
@@ -105,14 +106,15 @@ public class AdminViewBookingDetails {
 	{ 
 		
 		System.out.println("controller----------"+journeyDate);
-		String tempd="";
-		Date d=null;
+	
+		Date d=new Date();
 		if(journeyDate!="")
 		{
-			SimpleDateFormat format=new SimpleDateFormat("yyyy-MM-dd");
+			SimpleDateFormat formatter=new SimpleDateFormat("yyyy-MM-dd");
 			try {
 				
-				d=format.parse(journeyDate);
+				d=formatter.parse(journeyDate);
+				System.out.println(".........."+d);
 			} catch (ParseException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

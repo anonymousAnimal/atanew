@@ -23,7 +23,7 @@ function unallotedDrivers(reservationid,driverid)
 		if(req.readyState == 4 && req.status == 200){
 			console.log("------------");
 			document.getElementById(reservationid).innerHTML= req.responseText;
-		
+			
 		}
 	}
 	

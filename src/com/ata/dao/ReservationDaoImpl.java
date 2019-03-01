@@ -1,13 +1,17 @@
 package com.ata.dao;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -71,10 +75,43 @@ public class ReservationDaoImpl implements XyzDao<ReservationBean>{
 		
 		SimpleDateFormat formatter=new SimpleDateFormat("yyyy-MM-dd");
 		
+		String jdate=formatter.format(journeyDate);
+		Date startDate = null;
+		Date fromDate = null;
+		Date fromDate2 =null;
+		Date toDate2=null;
+		try {
+			startDate = formatter.parse(jdate+" 00:00:00");
+			 fromDate = formatter.parse(jdate+" 23:59:59");
+			 Calendar calendar = Calendar.getInstance();
+			 calendar.set(Calendar.HOUR_OF_DAY, 0);
+			 calendar.set(Calendar.MINUTE, 0);
+			 calendar.set(Calendar.SECOND, 0);
+			  fromDate2 = calendar.getTime();
+
+			 calendar.set(Calendar.HOUR_OF_DAY, 23);
+			 calendar.set(Calendar.MINUTE, 59);
+			 calendar.set(Calendar.SECOND, 59);
+			 toDate2 = calendar.getTime();
+
+		} catch (ParseException e) {
+			System.out.println("Exception in date parsing");
+			e.printStackTrace();
+		}
+		/*System.out.println(startDate);
+		System.out.println(fromDate);*/
 		System.out.println("-------------"+journeyDate+"-------"+routeID);
-		Query q=sf.getCurrentSession().createQuery(sql);
-		q.setParameter("j",journeyDate);
-		q.setParameter("r",routeID);
+		Session s=sf.getCurrentSession();
+		Criteria c=	s.createCriteria(ReservationBean.class);
+		c.add(Restrictions.between("journeyDate", fromDate2,toDate2));
+		Query q=s.createQuery(sql);
+		
+		//q.setParameter("j","2019-02-27");
+		
+			q.setDate("j",journeyDate);
+			q.setParameter("r",routeID);
+			
+					
 		
 		ArrayList<ReservationBean> al=	(ArrayList<ReservationBean>) q.list();
 		return al;
