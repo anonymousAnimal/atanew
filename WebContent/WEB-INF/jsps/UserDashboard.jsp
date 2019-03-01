@@ -16,7 +16,7 @@ please choose below options :<br>
 <a href="ViewVehiclesAndRoutes">view vehicles/Route Details</a><br><br>
 <a href="/ATA/Booking/BookVehicle">Book Vehicle</a><br><br>
 <a href="/ATA/Booking/CancelBooking">Cancel Booking</a><br><br>
-<a href="">View/Print Booking Details</a><br><br>
+<a href="/ATA/Booking/ViewBooking">View/Print Booking Details</a><br><br>
 </div>
 </body>
 </html>

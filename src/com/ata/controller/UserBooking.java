@@ -204,6 +204,24 @@ public class UserBooking {
 		return res+"";
 	}
 	
+	@RequestMapping(path="/ViewBooking")
+	public String viewBooking(Model m) 
+	{
+		ArrayList<ReservationBean> list = rsvDaoImpl.findAll();
+		m.addAttribute("reservationList",list);
+		return "ViewPrintBooking1";
+	}
+	
+	@RequestMapping(path="/doViewBooking")
+	public String doviewBooking(@RequestParam String reservationId, Model m) 
+	{
+		System.out.println(reservationId);
+		ReservationBean reservationBean = cservice.viewBookingDetails(reservationId);
+		m.addAttribute("reservationBean",reservationBean);
+		System.out.println(reservationBean);
+		return "ViewPrintBooking2";
+	}
+	
 	@InitBinder
 	protected void initBinder(WebDataBinder binder) {
 		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
