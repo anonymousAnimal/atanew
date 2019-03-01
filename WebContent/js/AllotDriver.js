@@ -32,12 +32,12 @@ function unallotedDrivers(reservationid,driverid)
 	
 }
 
-function getDestination(text, destdiv){
+function getDestination(text){
 	console.log("get destination for Admin called");
 	var url="getAdmindestination/?source="+text;
 	req.onreadystatechange = function(){
 		if(req.readyState == 4 && req.status == 200)
-		document.getElementById(destdiv).innerHTML= req.responseText;
+		document.getElementById("destdiv").innerHTML= req.responseText;
 	
 	}
 	
@@ -49,7 +49,9 @@ function viewBooking(journeydate,source,destination)
 {
 	var src=document.getElementById(source).value;
 	var dest=document.getElementById(destination).value;
-	var url="viewBookingDetails/?journeydate="+journeydate+"&source="+src+"&destination="+dest;
+	var journeyd=document.getElementById(journeydate).value;
+	console.log(journeyd);
+	var url="viewBookingDetails/?journeydate="+journeyd+"&source="+src+"&destination="+dest;
 	console.log("------------inside viewBooking-----");
 	req.onreadystatechange=function()
 	{

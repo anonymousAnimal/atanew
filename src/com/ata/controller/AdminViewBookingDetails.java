@@ -104,18 +104,24 @@ public class AdminViewBookingDetails {
 	public @ResponseBody String bookingDetails(@RequestParam("journeydate")String journeyDate,@RequestParam("source")String source,@RequestParam("destination")String destination)
 	{ 
 		
+		System.out.println("controller----------"+journeyDate);
+		String tempd="";
 		Date d=null;
 		if(journeyDate!="")
 		{
 			SimpleDateFormat format=new SimpleDateFormat("yyyy-MM-dd");
 			try {
+				
 				d=format.parse(journeyDate);
 			} catch (ParseException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+			//System.out.println("///////////////"+tempd);
+			
 		}
 		ArrayList<ReservationBean>resList=adminsl.viewBookingDetails(d,source,destination);
+		System.out.println("----------------------"+resList.size());
 		String response="";	
 		if(resList.size()==0)
 		{

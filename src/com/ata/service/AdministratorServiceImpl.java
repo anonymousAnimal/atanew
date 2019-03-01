@@ -135,9 +135,9 @@ public class AdministratorServiceImpl implements Administrator {
 	@Override
 	public ArrayList<ReservationBean> viewBookingDetails(Date journeyDate, String source, String destination) 
 	{
-		String routeID=routeDaoImpl.getRouteID(source, destination);
-		
-		ArrayList<ReservationBean> al=resdaoimpl.findBookingByJR(journeyDate,routeID);
+		RouteBean routeBean=routeDaoImpl.getRouteBySD(source, destination);
+		System.out.println("---------------routeid----"+routeBean.getRouteID());
+		ArrayList<ReservationBean> al=resdaoimpl.findBookingByJR(journeyDate,routeBean.getRouteID());
 		return al;
 	}
 
