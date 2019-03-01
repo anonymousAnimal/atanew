@@ -88,9 +88,10 @@ public class AdministratorServiceImpl implements Administrator {
 		//first check if driverid is not alloted to another
 		boolean res=false;
 		ReservationBean rb=resdaoimpl.findByID(reservationID);
-		if(rb.getDriverID()==null&&rb.getBookingStatus()==null){
+		System.out.println(rb);
+		if(rb.getBookingStatus().equals("pending")){
 			rb.setDriverID(driverID);
-			rb.setBookingStatus("SUCCESS");
+			rb.setBookingStatus("Approved");
 			res=resdaoimpl.update(rb);
 		}
 		
@@ -132,8 +133,11 @@ public class AdministratorServiceImpl implements Administrator {
 	}
 
 	@Override
-	public ArrayList<ReservationBean> viewBookingDetails(Date journeyDate, String source, String destination) {
-		ArrayList<ReservationBean> al=resdaoimpl.findBooking(journeyDate, source, destination);
+	public ArrayList<ReservationBean> viewBookingDetails(Date journeyDate, String source, String destination) 
+	{
+		RouteBean routeBean=routeDaoImpl.getRouteBySD(source, destination);
+		System.out.println("service layer : view booking details : routeid"+routeBean.getRouteID());
+		ArrayList<ReservationBean> al=resdaoimpl.findBookingByJR(journeyDate,routeBean.getRouteID());
 		return al;
 	}
 

@@ -115,6 +115,8 @@ public class CustomerServiceImpl implements Customer{
 		if(!authorizeCustomer())
 			return false;
 		
+		//ReservationBean reservationBean = resDaoImpl.findByID(reservationID);
+		
 		ArrayList<String> list = new ArrayList<String>();
 		list.add(reservationID);
 		int rowcnt = resDaoImpl.delete(list);

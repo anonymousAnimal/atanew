@@ -1,12 +1,17 @@
 package com.ata.dao;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -51,7 +56,7 @@ public class ReservationDaoImpl implements XyzDao<ReservationBean>{
 
 	@Override
 	public ReservationBean findByID(String s) {
-		ReservationBean b = (ReservationBean) sf.getCurrentSession().createCriteria(ReservationBean.class, s);
+		ReservationBean b = (ReservationBean) sf.getCurrentSession().get(ReservationBean.class, s);
 		return b;
 	}
 
@@ -61,18 +66,37 @@ public class ReservationDaoImpl implements XyzDao<ReservationBean>{
 		return li;
 	}
 	
-	public ArrayList<ReservationBean>findBooking(Date journeyDate, String source, String destination)
+///////////////////EXTRA METHODS/////////////////////
+	
+	
+	public ArrayList<ReservationBean>findBookingByJR(Date journeyDate,String routeID)
 	{
-		String routeid=routeDaoImpl.getRouteID(source, destination);
-		String sql="from ReservationBean where journeyDate=:j and routeid=:r ";
-			
-		Query q=sf.getCurrentSession().createQuery(sql);
-		q.setParameter("j", journeyDate);
-		q.setParameter("r",routeid);
+		String sql="from ReservationBean where journeyDate=:j and routeID=:r ";
 		
-		ArrayList<ReservationBean> al=	(ArrayList<ReservationBean>) q.getResultList();
+		Date startDate = journeyDate;
+		Date endDate = (Date) startDate.clone();
+		endDate.setHours(23);
+		endDate.setMinutes(59);
+		endDate.setSeconds(59);
+
+		
+		System.out.println("startenddate"+startDate+","+endDate);
+		
+		
+		Session s=sf.getCurrentSession();
+		Criteria c=	s.createCriteria(ReservationBean.class);
+		c.add(Restrictions.between("journeyDate", startDate,endDate));
+		Query q=s.createQuery(sql);
+		q.setDate("j",journeyDate);
+		q.setParameter("r",routeID);
+			
+					
+		
+		ArrayList<ReservationBean> al=	(ArrayList<ReservationBean>) q.list();
+		System.out.println("reservation list : "+al);
 		return al;
 	}
+	
 	
 	public ArrayList<ReservationBean> getUnallotedResDrivers()
 	{

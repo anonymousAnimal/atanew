@@ -3,11 +3,12 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
+<link rel="stylesheet" type="text/css" href="/ATA/static/css/table.css" />
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>ADD Driver</title>
 </head>
 <body>
-<jsp:include page="/Header.jsp"></jsp:include>
+<jsp:include page="/HeaderAdmin.jsp"></jsp:include>
 <h1>Add Driver</h1>
 <form action="addDriver1" method="post">
 <table align="center">

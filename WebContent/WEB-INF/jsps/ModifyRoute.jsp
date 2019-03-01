@@ -5,11 +5,12 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
+<link rel="stylesheet" type="text/css" href="/ATA/static/css/table.css" />
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Insert title here</title>
 </head>
 <body>
-<jsp:include page="/Header.jsp"></jsp:include>
+<jsp:include page="/HeaderAdmin.jsp"></jsp:include>
 <h1>Modify Route</h1>
 <f:form action="/ATA/Admin/modifyRoute" modelAttribute="routeBean" >
 <table align="center">

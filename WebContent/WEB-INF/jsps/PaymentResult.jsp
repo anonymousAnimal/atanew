@@ -5,6 +5,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+<link rel="stylesheet" type="text/css" href="/ATA/static/css/table.css" />
 <meta charset="ISO-8859-1">
 <title>${msg }</title>
 </head>
@@ -31,7 +32,7 @@
 	
 	<br>
 	<div align="center">
-	<form action="User/Dashboard" >
+	<form action="/ATA/User/Dashboard" >
 	<input type="submit" value="Go To DashBoard">
 	</form>
 	</div>

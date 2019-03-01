@@ -6,7 +6,7 @@
 <html>
 <head>
 
-<link rel="stylesheet" type="text/css" href="/ATA/static/Basic.css" />
+<link rel="stylesheet" type="text/css" href="/ATA/static/css/login.css" />
 <title>Login</title>
 <style type="text/css">
 	.errstyle{
@@ -16,17 +16,18 @@
 </style>
 </head>
 <body>
-<div class="login">
-<h1>Automation Travel Agency</h1>
-<h1>Login</h1>
-<f:form action="dologin" modelAttribute="credentialsBean">
+<div class="background-wrap">
+  <div class="background"></div>
+</div>
+<div class="inset">
+<f:form action="dologin" modelAttribute="credentialsBean" id="accesspanel">
+<h1 id="litheader">Automation Travel Agency</h1>
 <table align="center" >
-<tr><td>UserID</td><td><f:input type="text" path="userID" id="u"/></td> <td><f:errors path="userID" cssClass="errstyle"/></td></tr>
-<tr><td>Password</td><td><f:input type="password" path="password" id="p"/></td> <td><f:errors path="password" cssClass="errstyle"/></td></tr>
-<tr><td><!-- <button type="submit">Login</button> --><input type="submit" value="login" class="btn btn-primary btn-block btn-large"/></td></tr>
-<tr><td colspan=2><a href="register">New User?</a>Register Here</td></tr>
+<tr><td>UserID</td><td><f:input type="text" path="userID" /></td> <td><f:errors path="userID" cssClass="errstyle"/></td></tr>
+<tr><td>Password</td><td><f:input type="password" path="password"/></td> <td><f:errors path="password" cssClass="errstyle"/></td></tr>
+<tr><td><!-- <button type="submit">Login</button> --><input type="submit" value="Login" class="btn btn-primary btn-block btn-large"/></td></tr>
+<tr><td colspan=2><p class="p-container"><a href="register">New User?</a>Register Here</p></td></tr>
 <tr><td colspan=2 class="errstyle">${msg}</td></tr>
-
 </table>
 </f:form>
 </div>
