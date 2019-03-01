@@ -56,15 +56,15 @@ public class RouteDaoImpl implements XyzDao<RouteBean> {
 	
 	/////////////////////////////////////extra methods/////////////////////////////
 	
-	public String getRouteID(String source,String destination)
+	/*public String getRouteID(String source,String destination)
 	{
 		String sql="select routeID from RouteBean where source=:s and destination=:d";
 		Query q=sf.getCurrentSession().createQuery(sql);
 		q.setParameter("s",source);
 		q.setParameter("d", destination);
-		String routeid=(String) q.getSingleResult();
+		String routeid=(String) q.list().get(0);
 		return routeid;
-	}
+	}*/
 
 	public RouteBean getRouteBySD(String source,String destination)
 	{

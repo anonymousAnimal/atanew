@@ -1,5 +1,6 @@
 package com.ata.dao;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -66,13 +67,16 @@ public class ReservationDaoImpl implements XyzDao<ReservationBean>{
 	
 	public ArrayList<ReservationBean>findBookingByJR(Date journeyDate,String routeID)
 	{
-		String sql="from ReservationBean where journeyDate=:j and routeid=:r ";
-			
+		String sql="from ReservationBean where journeyDate=:j and routeID=:r ";
+		
+		SimpleDateFormat formatter=new SimpleDateFormat("yyyy-MM-dd");
+		
+		System.out.println("-------------"+journeyDate+"-------"+routeID);
 		Query q=sf.getCurrentSession().createQuery(sql);
-		q.setParameter("j", journeyDate);
+		q.setParameter("j",journeyDate);
 		q.setParameter("r",routeID);
 		
-		ArrayList<ReservationBean> al=	(ArrayList<ReservationBean>) q.getResultList();
+		ArrayList<ReservationBean> al=	(ArrayList<ReservationBean>) q.list();
 		return al;
 	}
 	

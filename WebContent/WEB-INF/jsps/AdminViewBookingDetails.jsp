@@ -4,29 +4,34 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-
+<script type="text/javascript" src="/ATA/js/AllotDriver.js"></script>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Insert title here</title>
 </head>
-<body >
-<form action="/ATA/Admin/viewBookingDetails/" >
+<body onload="checkAjax()">
+<jsp:include page="/Header.jsp"></jsp:include>
+<div id="result">
 
 Source:<br>
-<select name="sourcename">
+<select name="sourcename" id="source" onchange="getDestination(this.value)"> 
 <option value="NONE" label="Select Source"></option>
-<c:forEach var="r" items="${RouteList}">
-<option value="${r.source}">${r.source}</option>
+<c:forEach var="s" items="${sourceSet}">
+<option value="${s}">${s}</option>
 </c:forEach>
 </select><br>
+
 Destination:<br>
-<select name="destinationname" >
-<option value="NONE" label="Select Destination"></option>
-<c:forEach var="r" items="${RouteList}">
-<option value="${r.destination}">${r.destination}</option>
-</c:forEach>
+<div id="destdiv">
+<select name="destinationname" id="destination" disabled="disabled">
+	<option id= "0" value="NONE">NONE</option>
 </select>
-<br>Journey Date:<input type="date" name="journeyDate" >
-<br><input type="submit" value="View Details">
-</form>
+</div>
+
+
+<br>Journey Date:<input type="date" name="journeyDate" id="journeyDate" >
+
+<br><button onclick="viewBooking('journeyDate','source','destination')">View Details</button>
+</div>
+
 </body>
 </html>
