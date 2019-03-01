@@ -5,6 +5,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+<link rel="stylesheet" type="text/css" href="/ATA/static/css/table.css" />
 <meta charset="ISO-8859-1">
 <title>${msg }</title>
 </head>

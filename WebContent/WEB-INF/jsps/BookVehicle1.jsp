@@ -5,6 +5,29 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
+<style type="text/css">
+.select-style {
+    border: 1px solid #ccc;
+    width: 120px;
+    border-radius: 3px;
+    overflow: hidden;
+    background: #fafafa url("img/icon-select.png") no-repeat 90% 50%;
+}
+
+.select-style select {
+    padding: 5px 8px;
+    width: 130%;
+    border: none;
+    box-shadow: none;
+    background: transparent;
+    background-image: none;
+    -webkit-appearance: none;
+}
+
+.select-style select:focus {
+    outline: none;
+}
+</style>
 	<script type="text/javascript" src="/ATA/js/bookvehicle.js"></script>
 
 
@@ -12,21 +35,25 @@
 <title>Book vehicle</title>
 </head>
 <body onload="checkajax()">
+
 <jsp:include page="/HeaderUser.jsp"></jsp:include>
 
-	<f:form action="Page2" modelAttribute="reservationBean" method="POST">
-	journey date : <f:input  type="date" path="journeyDate" ></f:input>
 	
-	<!-- dropdown sourcelist -->Source : 
-		<select id = "selectsourcelist"  onchange="getDestination(this.value, 'divdestination')" name="source">
+	<div align="center">
+	<f:form action="Page2" modelAttribute="reservationBean" method="POST">
+	Journey date : <f:input  type="date" path="journeyDate" ></f:input>
+		
+		
+	<!-- dropdown sourcelist --><br>Source : 
+		<select id = "selectsourcelist"  onchange="getDestination(this.value, 'divdestination')" name="source" class="select-style">
 		<option id="0" value="NONE">NONE</option>
 		<c:forEach var="s" items="${sourcelist}">
 			<option id="${s}" value="${s}" label="${s}">${s}</option>
 		</c:forEach>
 		</select>
 		
-		<!-- dropdown destination list -->Destination : 
-		<div id= "divdestination" >
+		<!-- dropdown destination list --><br>Destination : 
+		<div id= "divdestination" class="select-style">
 		<select id ="destinationlist" disabled="disabled" >
 			<option id= "0" value="NONE">NONE</option>
 		</select>
@@ -40,8 +67,8 @@
 		<!-- <input type="radio" name="radiovehiclecriteria"  id="bytype" value="type" onclick="getvehicles('divvehicle')"> type
 		<input type="radio" name="radiovehiclecriteria" id="byseat" value="seat" onclick="getvehicles('divvehicle')"> seat -->
 		
-		typelist : 
-		<select id = "selecttypelist"  onchange="getVehicles('selecttypelist','selectseatlist', 'divvehicle')" ;">
+		Typelist : 
+		<select id = "selecttypelist"  onchange="getVehicles('selecttypelist','selectseatlist', 'divvehicle')" ;" class="select-style">
 		<option id="NONE" label="NONE" value="">NONE</option>
 		<c:forEach var="s" items="${typelist}">
 			<option id="${s}" value="${s}" label="${s}">${s}</option>
@@ -50,8 +77,8 @@
 		</select>
 		<br>
 		<br>
-		seatlist : 
-		<select id = "selectseatlist"  onchange="getVehicles('selecttypelist','selectseatlist', 'divvehicle')" ;">
+		Seatlist : 
+		<select id = "selectseatlist"  onchange="getVehicles('selecttypelist','selectseatlist', 'divvehicle')" ;" class="select-style">
 		<option id="NONE" label="NONE" value="NONE">NONE</option>
 		<c:forEach var="s" items="${seatlist}">
 			<option id="${s}" value="${s}" label="${s}">${s}</option>
@@ -62,14 +89,15 @@
 		
 		<br>
 		<!-- vehicle list  -->
-		<div name="divvehicle" id="divvehicle" >
+		<div name="divvehicle" id="divvehicle" class="select-style" >
 		<select name="vehicleid" id="selectvehiclelist" disabled="disabled" >
 			<option id="0" value="" label="NONE">NONE</option>
 		</select>
 		</div>
 		
 		
-		<f:button name="submit" >proceed>>></f:button>
+		<f:button name="submit" >Proceed to Next Page</f:button>
 	</f:form>
+	</div>
 </body>
 </html>

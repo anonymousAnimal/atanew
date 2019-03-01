@@ -4,6 +4,7 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
+<link rel="stylesheet" type="text/css" href="/ATA/static/css/table.css" />
 <script type="text/javascript" src="/ATA/js/bookvehicle.js"></script>
 
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
