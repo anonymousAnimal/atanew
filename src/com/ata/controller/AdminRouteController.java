@@ -82,11 +82,15 @@ public class AdminRouteController {
 	{
 		//CredentialsBean cb=(CredentialsBean)ses.getAttribute("credentialsBean");
 		//authenticate user
+		try {
 		ArrayList<String>ar=new ArrayList<String>();
 		ar.add(id);
 		int rows=administratorServiceImpl.deleteRoute(ar);
 		m.addAttribute("msg","Route deleted with id : "+id);
-	
+		}
+		catch(Exception e) {
+			m.addAttribute("msg","Cannot delete Route id="+id+": it may be booked by customer ["+e.getMessage()+"]");
+		}
 		return "AdminDashboard";
 	}
 	

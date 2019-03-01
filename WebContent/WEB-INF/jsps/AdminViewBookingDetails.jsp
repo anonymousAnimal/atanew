@@ -12,25 +12,29 @@
 <body onload="checkAjax()">
 
 <jsp:include page="/HeaderAdmin.jsp"></jsp:include>
-<div id="result">
+<div id="result" align="center">
 
-
-Source:<select name="sourcename" id="source" onchange="getDestination(this.value)"> 
+<table>
+<tr>
+<td>Source</td><td><select name="sourcename" id="source" onchange="getDestination(this.value)"> 
 <option value="NONE" label="Select Source"></option>
 <c:forEach var="s" items="${sourceSet}">
 <option value="${s}">${s}</option>
 </c:forEach>
-</select><br>
+</select></td>
+</tr>
 
-Destination:<div id="destdiv">
+<tr>
+<td>Destination</td><td><div id="destdiv">
 <select name="destinationname" id="destination" disabled="disabled">
 	<option id= "0" value="NONE">NONE</option>
 </select>
 </div>
+</td></tr>
 
-
-<br>Journey Date:<input type="date" name="journeyDate" id="journeyDate" >
-
+<tr>
+<td>Journey Date</td><td><input type="date" name="journeyDate" id="journeyDate" ></td></tr>
+</table>
 <br><button onclick="viewBooking('journeyDate','source','destination')">View Details</button>
 </div>
 

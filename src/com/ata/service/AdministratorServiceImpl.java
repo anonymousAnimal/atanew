@@ -19,7 +19,7 @@ import com.ata.dao.VehicleDaoImpl;
 import com.ata.util.DBSequenceUtil;
 
 @Service
-@Transactional
+
 public class AdministratorServiceImpl implements Administrator {
 
 	@Autowired

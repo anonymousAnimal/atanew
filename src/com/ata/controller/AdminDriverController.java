@@ -75,9 +75,16 @@ public class AdminDriverController {
 	{
 		//CredentialsBean cb=(CredentialsBean)ses.getAttribute("credentialsBean");
 		//authenticate user
+		try{
 		ArrayList<String>ar=new ArrayList<String>();
 		ar.add(id);
 		int rows=administratorServiceImpl.deleteDriver(ar);
+		}
+		catch(Exception e) {
+			m.addAttribute("msg","cannot delete driver with id: "+id+" as it may be assigned to a user ["+e.getMessage()+"]");
+			
+			return "AdminDashboard";
+		}
 		m.addAttribute("msg","Driver deleted with id : "+id);
 	
 		return "AdminDashboard";

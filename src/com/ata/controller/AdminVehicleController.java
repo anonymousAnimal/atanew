@@ -75,10 +75,15 @@ public class AdminVehicleController {
 	{
 		//CredentialsBean cb=(CredentialsBean)ses.getAttribute("credentialsBean");
 		//authenticate user
+		try {
 		ArrayList<String>ar=new ArrayList<String>();
 		ar.add(id);
 		int rows=administratorServiceImpl.deleteVehicle(ar);
 		m.addAttribute("msg","Vehicle deleted with id : "+id);
+		}
+		catch(Exception e) {
+			m.addAttribute("msg","cannot delete vehicle id = "+id+" because it may already be assigned to a customer ");
+		}
 	
 		return "AdminDashboard";
 	}

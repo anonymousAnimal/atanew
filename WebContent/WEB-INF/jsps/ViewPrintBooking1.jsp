@@ -16,7 +16,7 @@
 	Select Your Option Below : 
 	<select name=reservationId>
 		<c:forEach var="r" items="${reservationList}">
-			<option id='${r.reservationID}' label="${r.reservationID} ${r.journeyDate} ${r.boardingPoint}-${r.dropPoint }" >${r.reservationID} </option>
+			<option id='${r.reservationID}' label="${r.reservationID} ${r.journeyDate} ${r.boardingPoint}-${r.dropPoint }" value="${r.reservationID}">  ${r.reservationID} ${r.journeyDate} ${r.boardingPoint}-${r.dropPoint }</option>
 		</c:forEach>
 	</select>
 	<br><br><br>

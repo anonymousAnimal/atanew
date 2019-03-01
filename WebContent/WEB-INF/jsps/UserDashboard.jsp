@@ -9,11 +9,12 @@
 </head>
 <body>
 <jsp:include page="/HeaderUser.jsp"/>
-<h2>Welcome ${profileBean.getFirstName()} ${profileBean.getLastName()}</h2> 
+
+<h2 >  Welcome! ${profileBean.getFirstName()} ${profileBean.getLastName()}</h2> 
 <!-- <div align="right"><button onclick="window.location='../logout'">logout</button></div> -->
 
 
-<div class="card" onclick="" style="display:block-inline" >
+<div class="card"  style="display:block-inline" >
 <a href = "Profile">
   <img src="/ATA/static/images/male_avatar.png" alt="Avatar" style="width:100%" ></a>
   <div class="container" >
@@ -25,9 +26,9 @@
   </div>
 </div>
 
-<div class="card" onclick="" style="display:block-inline" >
+<div class="card"  style="display:block-inline" >
 <a href = "ViewVehiclesAndRoutes">
-  <img src="/ATA/static/images/route.jpg" alt="Avatar" style="width:100%" ></a>
+  <img src="/ATA/static/images/route.png" alt="Avatar" style="width:100%" ></a>
   <div class="container" >
   <h4 >
   <a href = "ViewVehiclesAndRoutes">
@@ -38,7 +39,7 @@
 </div>
 
 
-<div class="card" onclick="" style="display:block-inline" >
+<div class="card"  style="display:block-inline" >
 <a href = "/ATA/Booking/BookVehicle">
   <img src="/ATA/static/images/car.png" alt="Avatar" style="width:100%" ></a>
   <div class="container" >
@@ -50,9 +51,9 @@
   </div>
 </div>
 
-<div class="card" onclick="" style="display:block-inline" >
+<div class="card"  style="display:block-inline" >
 <a href = "/ATA/Booking/CancelBooking">
-  <img src="/ATA/static/images/male_avatar.png" alt="Avatar" style="width:100%" ></a>
+  <img src="/ATA/static/images/cancel.png" alt="Avatar" style="width:100%" ></a>
   <div class="container" >
   <h4>
   <a href = "/ATA/Booking/CancelBooking">
@@ -63,13 +64,13 @@
   </div>
 </div>
 
-<div class="card" onclick="" style="display:block-inline" >
+<div class="card"  style="display:block-inline" >
 <a href = "/ATA/Booking/ViewBooking">
-  <img src="/ATA/static/images/male_avatar.png" alt="Avatar" style="width:100%" ></a>
+  <img src="/ATA/static/images/print.png" alt="Avatar" style="width:100%" ></a>
   <div class="container" >
   <h4 >
   <a href = "/ATA/Booking/ViewBooking">
-  <b>View/Print Booking Details</b> 
+  <b>Print Booking Details</b> 
   </a>
   </h4>
   </div>
@@ -84,5 +85,6 @@ please choose below options :<br>
 <a href="/ATA/Booking/CancelBooking">Cancel Booking</a><br><br>
 <a href="/ATA/Booking/ViewBooking">View/Print Booking Details</a><br><br>
 </div> -->
+
 </body>
 </html>

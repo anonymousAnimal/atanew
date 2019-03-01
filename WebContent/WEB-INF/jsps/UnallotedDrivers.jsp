@@ -34,7 +34,7 @@
 
 </table>
 
-<div id="msg">
+<div id="msg" >
 
 </div>
 </body>

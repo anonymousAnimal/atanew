@@ -29,6 +29,7 @@ function unallotedDrivers(reservationid,driverid)
 	
 	req.open("GET", url, true);
 	req.send();
+	document.getElementById("msg").innerHTML = "please wait ......."
 	
 }
 

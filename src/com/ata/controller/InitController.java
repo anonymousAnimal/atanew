@@ -43,7 +43,7 @@ public class InitController {
 	@Autowired
 	UserProfileDaoImpl pdao;
 	@Autowired
-	User user;
+	User userUtil;
 	@Autowired
 	Authentication authUtil;
 
@@ -62,18 +62,13 @@ public class InitController {
 	}
 
 	@RequestMapping(path = "/dologin")
-	public String doLogin(@Valid CredentialsBean credentialsBean, BindingResult bres,
-			Model m, HttpSession session) {
-		session.setMaxInactiveInterval(0);
+	public String doLogin( CredentialsBean credentialsBean, Model m, HttpSession session)
+	{
 		
-		if (bres.hasErrors()) {
-			System.out.println("some error occured");
-			m.addAttribute("msg", "validation problem");
-			 m.addAttribute("credentialsBean",new CredentialsBean());
-			return "login";
-		}
 
 		String msg = "";
+		
+		// when userid or pass is invalid then redirecting to login page
 		if (!authUtil.authenticate(credentialsBean)){
 			System.out.println("invalid uname or pass");
 			msg = "invalid username or password !!!";
@@ -82,8 +77,10 @@ public class InitController {
 			return "login";
 		}
 
+		// user valid now checking it's type
 		String result = authUtil.authorize(credentialsBean.getUserID());
 
+		// some error occured while checking it's type
 		if (result == null) {
 			System.out.println("error occured result null");
 			msg = "some error occured as result is null";
@@ -92,6 +89,7 @@ public class InitController {
 			return "login";
 		}
 
+		// user authorized . now redirecting to it's respective dashboard page
 		if (result.equals("A") || result.equals("C")) {
 			System.out.println("valid user : " + result);
 			boolean res = authUtil.changeLoginStatus(credentialsBean, 1); // changing the loginstatus
@@ -112,16 +110,22 @@ public class InitController {
 
 	}
 
+	
 	@RequestMapping(path = "/doregister", method = RequestMethod.POST)
-	public String doRegister(@Valid ProfileBean profileBean, BindingResult bres, Model m) {
+	public String doRegister(@Valid ProfileBean profileBean, BindingResult bres, Model m)
+	{
+		
 		profileBean.setEmailID(profileBean.getEmailID().toLowerCase().trim());
 		System.out.println("inside doregister method");
+		
+		// form validation
 		if (bres.hasErrors()) {
 			System.out.println("doregister : has errors");
 			return "Register";
 		}
 
-		String result = user.register(profileBean);
+		// registering user and redirecting to respective page
+		String result = userUtil.register(profileBean);
 		System.out.println(result);
 		if (result.equals("FAIL"))
 			m.addAttribute("msg", "Resitration status : " + result + " You are already registered Please Login !!");
@@ -133,50 +137,25 @@ public class InitController {
 		return "login";
 	}
 
-//	@RequestMapping(path = "/logout")
-//	public String logout(@ModelAttribute("profileBean") ProfileBean pb, Model m, HttpSession session) {
-//		ProfileBean profileBean = (ProfileBean) session.getAttribute("profileBean");
-//
-//		if (profileBean != null || (session.getAttribute("credentialsBean") != null)) {
-//			String uid;
-//			if (profileBean != null) {
-//				System.out.println("InitController.logout() : profileBean is not null");
-//				if (profileBean.getUserID() == null) {
-//					System.out.println("user id is null");
-//					return null;
-//				}
-//			}
-//
-//			System.out.println("logging out...");
-//			boolean res = user.logout(profileBean.getUserID());
-//			if (res) {
-//				System.out.println("logout success now invalidating session ....");
-//				session.invalidate(); // invalidating session.
-//				m.addAttribute("msg", "successfully logged out !");
-//			} else
-//				m.addAttribute("msg", "error while logout possibly you are already logged out !");
-//
-//			System.out.println("redirecting to login page...");
-//			m.addAttribute("credentialsBean", new CredentialsBean());
-//			return "login";
-//		} else
-//			System.out.println("InitController.logout(): profileBean is null && credentialsBean is null");
-//		return null;
-//
-//	}
 	
 	@RequestMapping("/logout")
-	public String doLogout(Model m, HttpSession session) {
+	public String doLogout(Model m, HttpSession session) 
+	{
 		try {
+			// getting session object stored in  session
 		CredentialsBean cb =(CredentialsBean) session.getAttribute("credentialsBean");
 		String uid = cb.getUserID();
 		System.out.println("logging out...");
-		boolean res = user.logout(uid);
+		
+		// logging out
+		boolean res = userUtil.logout(uid);
 		if (res) {
+			// success
 			System.out.println("logout success now invalidating session ....");
 			session.invalidate(); // invalidating session.
 			m.addAttribute("msg", "successfully logged out !");
 		} else
+			// fail
 			m.addAttribute("msg", "error while logout possibly you are already logged out !");
 		
 		}

@@ -12,10 +12,8 @@ import org.hibernate.validator.constraints.NotEmpty;
 @Table(name="ata_tbl_user_credentials")
 public class CredentialsBean {
 	@Id
-	@NotEmpty(message="userID cannot be Empty !")
 	private String userID;
 	
-	@NotEmpty(message="Please enter the password !")
 	private String password;
 	
 	private String userType;

@@ -14,19 +14,20 @@
 		font-style: italic;
 	}
 </style>
+
 </head>
 <body>
 <div class="background-wrap">
   <div class="background"></div>
 </div>
 <div class="inset">
-<f:form action="dologin" modelAttribute="credentialsBean" id="accesspanel">
+<f:form action="dologin" modelAttribute="credentialsBean" id="accesspanel" >
 <h1 id="litheader">Automation Travel Agency</h1>
 <table align="center" >
-<tr><td>UserID</td><td><f:input type="text" path="userID" /></td> <td><f:errors path="userID" cssClass="errstyle"/></td></tr>
-<tr><td>Password</td><td><f:input type="password" path="password"/></td> <td><f:errors path="password" cssClass="errstyle"/></td></tr>
-<tr><td><!-- <button type="submit">Login</button> --><input type="submit" value="Login" class="btn btn-primary btn-block btn-large"/></td></tr>
-<tr><td colspan=2><p class="p-container"><a href="register">New User?</a>Register Here</p></td></tr>
+<tr><td>UserID</td><td><f:input id="userId" type="text" path="userID" required="true"/></td> </tr>
+<tr><td>Password</td><td><f:input id="password" type="password" path="password" required="true"/></td> </tr>
+<tr><td ><input type="submit" value="Login" class="btn btn-primary btn-block btn-large"/></td></tr>
+<tr><td colspan=2 align="center"><p class="p-container"><a href="register">New User?</a></p></td></tr>
 <tr><td colspan=2 class="errstyle">${msg}</td></tr>
 </table>
 </f:form>
